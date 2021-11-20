@@ -6,6 +6,6 @@ RSpec.describe Englishest do
   end
 
   it "does something useful" do
-    expect(false).to eq(true)
+    expect(1 <=> 1).to eq(1.trichotomize 1)
   end
 end

@@ -15,6 +15,7 @@
 - enable to use dash rather than dot as method call operator :
   that is `object-method` rather than `object.method`
   - ensure that numeric value still bind dash to minus, that is substraction
+- allow to select a locale rather than defining all alternatives forms
 
 # Notes
 Terms above are to be taken as

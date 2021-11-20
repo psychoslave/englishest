@@ -4,11 +4,14 @@ require_relative "englishest/version"
 
 module Englishest
   class Error < StandardError; end
+  Comparable_aliases = {
+    '<=>': %i[trichotomise trichotomize spy wye]
+  }
 
-  class Comparable
-    # Albionian rendition
-    alias_method :trichotomise, :<=>
-    # Yankee version
-    alias_method :trichotomize, :<=>
+
+  module ::Comparable
+    Englishest::Comparable_aliases.each do |operator, monikers|
+      monikers.each{ alias_method _1, operator }
+    end
   end
 end
