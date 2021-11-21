@@ -5,7 +5,14 @@ RSpec.describe Englishest do
     expect(Englishest::VERSION).not_to be nil
   end
 
-  it "is possible to call spaceship operator with aliasing methods" do
-    expect(1 <=> 1).to eq(1.trichotomize 1)
+  it "is possible to call comparable operators with aliasing methods" do
+    Englishest::Comparable::ALIASES.each do |operator, monikers|
+      monikers.each{ expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
+      unless %i[=~ !~].include? operator
+        monikers.each{ expect(?a.send(operator, ?a)).to eq(?a.send(_1, ?a)) }
+      else
+        monikers.each{ expect(?a.send(operator, /a/)).to eq(?a.send(_1, /a/)) }
+      end
+    end
   end
 end

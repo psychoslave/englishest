@@ -4,16 +4,69 @@ require_relative "englishest/version"
 
 module Englishest
   class Error < StandardError; end
-  module Comparable
+  module BasicObject
     ALIASES = {
-      '<=>': %i[trichotomise trichotomize spy wye]
+      '==': %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
+      'equal?': %i[equireferent? univocal? nod?],
+      '!=': %i[dissent? inæqual inequal unequal? unlike? wry?],
+      #TODO
+      #'!': unary bivalent negation prefix aliasable has non-],
+      #!
     }
   end
 
+  module Object
+    ALIASES = {
+      'eql?': %i[akin? equisummable? isoepitomizable? like? tie?],
+      '!~': %i[absent? devoid? off? miss?],
+      '<=>': %i[trichotomise trichotomize spy wye],
+      '===': %i[encompass? fit? gird?],
+      '=~': %i[hit],
+    }
+  end
 
-  module ::Comparable
-    Englishest::Comparable::ALIASES.each do |operator, monikers|
-      monikers.each{ alias_method _1, operator }
-    end
+  module String
+    ALIASES = {
+      '=~': %i[hit],
+    }
+  end
+
+  module Regexp
+    ALIASES = {
+      '=~': %i[hit],
+      # TODO: unary ~ which matches rxp against the contents of $_
+    }
+  end
+
+  module Comparable
+    ALIASES = {
+      # TODO
+      #<
+      #<=
+      #==
+      #>
+      #>=
+    }
+  end
+
+  #TODO
+  # Kernel#` which allow shell execution
+
+  #TODO
+  #'=': %i[assign fix set],
+
+  #TODO use a dynamic list of submodules
+  kins = %w[BasicObject Object Regexp String]
+  ilks = kins.map{ (eval "::#{_1}").class.to_s.downcase }
+  # For each type containing an operator which is to be aliassed, reopen it
+  # and generate aliases defined in the present eponimous submodules.
+  kins.zip(ilks).to_h.each do |kin, ilk|
+    eval <<~RUBY
+      #{ilk} ::#{kin}
+        ::Englishest::#{kin}::ALIASES.each do |operator, monikers|
+          monikers.each{ alias_method _1, operator }
+        end
+      end
+    RUBY
   end
 end
