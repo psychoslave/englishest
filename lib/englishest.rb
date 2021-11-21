@@ -55,18 +55,24 @@ module Englishest
   #TODO
   #'=': %i[assign fix set],
 
-  #TODO use a dynamic list of submodules
-  kins = %w[BasicObject Object Regexp String]
-  ilks = kins.map{ (eval "::#{_1}").class.to_s.downcase }
+  # Return list of submodules whose name matchas a class or module that is
+  # affected by the gem
+  def self.covered_types
+    Englishest.constants.grep_v /VERSION|Error/
+  end
+
+  types = covered_types
+  ilks = types.map{ (eval "::#{_1}").class.to_s.downcase }
   # For each type containing an operator which is to be aliassed, reopen it
   # and generate aliases defined in the present eponimous submodules.
-  kins.zip(ilks).to_h.each do |kin, ilk|
+  types.zip(ilks).to_h.each do |type, ilk|
     eval <<~RUBY
-      #{ilk} ::#{kin}
-        ::Englishest::#{kin}::ALIASES.each do |operator, monikers|
+      #{ilk} ::#{type}
+        ::Englishest::#{type}::ALIASES.each do |operator, monikers|
           monikers.each{ alias_method _1, operator }
         end
       end
     RUBY
   end
+
 end
