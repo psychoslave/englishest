@@ -54,3 +54,4 @@ Resources consulted while hacking this gem:
 - https://en.wikipedia.org/wiki/Three-way_comparison#Spaceship_operator
 - https://bundler.io/guides/creating_gem.html
 - https://guides.rubygems.org/patterns/
+- http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html

@@ -97,7 +97,8 @@ module Englishest
       !(self.equal?(topic))
     end
     alias_method :deny?, :dissent?
-    alias_method :ban?, :dissent?
+    alias_method :axe?, :dissent?
+    # Note that :ban?, :nay?, :nix?, :ort? might have do the trick
   end
 
 end

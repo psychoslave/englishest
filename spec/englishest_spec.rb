@@ -31,7 +31,7 @@ RSpec.describe Englishest do
 
     expect(true.dissent?).to be false
     expect(true.deny?).to be false
-    expect(true.ban?).to be false
+    expect(true.axe?).to be false
     expect((1+1).dissent? 2).to be false
     expect((1+1).dissent? 3).to be true
     # Numeric conventions should still hold
