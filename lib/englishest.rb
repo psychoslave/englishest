@@ -41,11 +41,11 @@ module Englishest
   module Comparable
     ALIASES = {
       # TODO
-      #<
-      #<=
-      #==
-      #>
-      #>=
+      '<': %i[afore? ahead? before? ere? inferior_to? less_than? lower_than? prior? smaller_than? precede?],
+      '<=': %i[at_most? behind? ben? below? beneath? concede? comprised? under? underneath? within?],
+      #'==': already aliased in BasicObject
+      '>': %i[after? beyond? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supersede? superior_to? top? upper_than?],
+      '>=': %i[above? accede? at_least? comprise? on? onward? upward? upon?],
     }
   end
 

@@ -19,8 +19,10 @@
 
 # Notes
 Terms above are to be taken as
-`spy`:  To distinguish something as being different from something else; to differentiate.
-`wye`:  a triangular joining arrangement of three rail lines with a railroad switch (set of points) at each corner connecting to each incoming line.
+`ben`: (Scotland, Northern England) Inside.
+`spy`: To distinguish something as being different from something else; to differentiate.
+`wye`: a triangular joining arrangement of three rail lines with a railroad switch (set of points) at each corner connecting to each incoming line.
+`ere`: Before; sooner than.
 
 ## Terms with `equi-` prefix
 
