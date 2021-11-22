@@ -7,7 +7,7 @@ module Englishest
   module BasicObject
     ALIASES = {
       '==': %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
-      'equal?': %i[equireferent? univocal? nod?],
+      'equal?': %i[equireferent? univocal?],
       '!=': %i[dissent? inæqual inequal unequal? unlike? wry?],
       #TODO
       #'!': unary bivalent negation prefix aliasable has non-],
@@ -62,6 +62,8 @@ module Englishest
   end
 
   types = covered_types
+  # Reopening a type require to explicit its class (class or module),
+  # hereafter called ilk.
   ilks = types.map{ (eval "::#{_1}").class.to_s.downcase }
   # For each type containing an operator which is to be aliassed, reopen it
   # and generate aliases defined in the present eponimous submodules.
@@ -73,6 +75,29 @@ module Englishest
         end
       end
     RUBY
+  end
+
+  # Treating some corner cases specifically
+  class ::BasicObject
+    alias_method :negative?, '!'
+
+    def positive?
+      !!self
+    end
+
+    # Consent tacitely mean "compared to truth" when no topic is given
+    def consent?(topic = true)
+      self.equal? topic
+    end
+    alias_method :nod?, :consent?
+
+    # Opposite of consent, although this is implemented as a fully automous
+    # determination, which inter alia avoid some technical convonlutions
+    def dissent?(topic = true)
+      !(self.equal?(topic))
+    end
+    alias_method :deny?, :dissent?
+    alias_method :ban?, :dissent?
   end
 
 end
