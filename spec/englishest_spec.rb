@@ -5,7 +5,7 @@ RSpec.describe Englishest do
     expect(Englishest::VERSION).not_to be nil
   end
 
-  it "is possible to call ideographic operators with aliased methods" do
+  it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
       (eval "Englishest::#{type}::ALIASES").each do |operator, monikers|
         monikers.each{ expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
@@ -16,6 +16,66 @@ RSpec.describe Englishest do
         end
       end
     end
+  end
+
+  it "provides at least one trigram for each alias set (irrespective of punctuation signs)" do
+    # Return true if any word in a synonym list is less than 4 grapheme
+    def hypotetragramable?(synonyms)
+      synonyms.any?{ _1.match(/\p{Alpha}*/)[0].size < 4 }
+    end
+
+    Englishest.covered_types.each do |type|
+      (eval "Englishest::#{type}::ALIASES").each do |operator, monikers|
+        expect(hypotetragramable?(monikers)).to be(true), "Fail on #{type}##{operator}"
+      end
+    end
+  end
+
+  it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do
+  <<~                           ❧ ravelled rationale ☙
+                                          ❦
+
+    The basic idea here is to provide a list of word that end in -cede in
+    combination with prefixal morphemes marking logical, spatial or temporal
+    ordering, such as pre-, post-, etc.
+
+    The idea emerged as several words ending in -cede appeared at the first
+    list that was generated for these aliases. This was all the more amusing as
+    the same phenomenum occurs with -lect in Ruby enumerables for example.
+    Try `[].methods.grep(/lect$/)`. 😺
+
+    From an etymological point of view, -cede is attached to the Latin
+    cedere/cedo, meaning inter alia "to turn out, happen".
+
+    Both subcede and supercede are rather rare terms, but where still considered
+    relevant in the current scope. Supercede is a bit less rare, but generally
+    dictionaries will mark it as a misspell of supersede: this is not the case
+    here. Actually it turn out that both are judged relevant here, having
+    considered their respective etymologies.
+
+
+
+                                          ❦
+                                ❧ ravelled rationale ☙
+    # Stricly lower than
+    expect(0.precede? 1).to be true
+    expect(0.antecede? 1).to be true
+    expect(0.subcede? 1).to be true # somewhat like subceed
+
+    # Lower than or equal to
+    # Not to be confused with subcede, succeed, subside or succeed
+    expect(0.proconcede? 1).to be true
+
+    # Equal
+    expect(0.concede? 0).to be true
+
+    # Greater than or equal to
+    expect(1.prosupercede? 0).to be true
+
+    # Strictly greater than
+    expect(1.postcede? 0).to be true
+    expect(1.excede? 0).to be true
+    expect(1.supercede? 0).to be true #
   end
 
   it "is possible to express affirmation and denial through methods" do

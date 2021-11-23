@@ -7,7 +7,7 @@ module Englishest
   module BasicObject
     ALIASES = {
       '==': %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
-      'equal?': %i[equireferent? univocal?],
+      'equal?': %i[equireferent? peg? univocal?],
       '!=': %i[dissent? inæqual inequal unequal? unlike? wry?],
       #TODO
       #'!': unary bivalent negation prefix aliasable has non-],
@@ -40,12 +40,13 @@ module Englishest
 
   module Comparable
     ALIASES = {
-      # TODO
-      '<': %i[afore? ahead? before? ere? inferior_to? less_than? lower_than? prior? smaller_than? precede?],
-      '<=': %i[at_most? behind? ben? below? beneath? concede? comprised? under? underneath? within?],
-      #'==': already aliased in BasicObject
-      '>': %i[after? beyond? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supersede? superior_to? top? upper_than?],
-      '>=': %i[above? accede? at_least? comprise? on? onward? upward? upon?],
+      '<': %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
+              lower_than? prior? subcede? subceed? smaller_than? precede?],
+      '<=': %i[at_most? behind? ben? below? beneath? comprised? proconcede?
+               under? underneath? within?],
+      '==': %i[apt? concede?], # also has other aliases through BasicObject
+      '>=': %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
+      '>': %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede? supersede? superior_to? top? upper_than?],
     }
   end
 
