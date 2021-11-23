@@ -11,4 +11,4 @@ gem "rspec", "~> 3.0"
 
 gem "rubocop", "~> 1.7"
 
-gem "byebug", "~> 11.1", :groups => [:development, :test]
+gem "byebug", "~> 11.1", groups: %i[development test]
