@@ -102,8 +102,8 @@ RSpec.describe Englishest do
     expect(1.negative?).to be false
     expect(1.positive?).to be true
     # beware of precedence regarding unary negation prefixal operator
-    expect(!0.positive?.nil?).to be false
-    expect((!0.nil?).positive?).to be true
+    expect((!0).positive?).to be false
+    expect(!(0.positive?)).to be true
     # nil should also stay with usual ruby semantic
     expect(nil.negative?).to be true
   end
