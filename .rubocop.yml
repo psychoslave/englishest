@@ -1,5 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.5
+  DisplayCopNames: true
+
+Security/Eval:
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
@@ -11,3 +15,12 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 120
+
+Style/OptionalBooleanParameter:
+  AllowedMethods:
+    - consent?
+    - dissent?
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+    - 'spec/*.rb'

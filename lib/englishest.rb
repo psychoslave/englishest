@@ -2,6 +2,8 @@
 
 require_relative "englishest/version"
 
+# Encapsulate all the contrivances to allow a coding style using more English
+# vocabulary, especially enabling to express ideas without ideographi operators.
 module Englishest
   class Error < StandardError; end
 
@@ -67,11 +69,11 @@ module Englishest
   types = covered_types
   # Reopening a type require to explicit its class (class or module),
   # hereafter called ilk.
-  ilks = types.map { (eval "::#{_1}").class.to_s.downcase }
+  ilks = types.map { Object.const_get(_1).class.to_s.downcase }
   # For each type containing an operator which is to be aliassed, reopen it
   # and generate aliases defined in the present eponimous submodules.
   types.zip(ilks).to_h.each do |type, ilk|
-    eval <<~RUBY
+    eval <<~RUBY, binding, __FILE__, __LINE__ + 1
       #{ilk} ::#{type}
         ::Englishest::#{type}::ALIASES.each do |operator, monikers|
           monikers.each{ alias_method _1, operator }
@@ -84,6 +86,8 @@ module Englishest
   class ::BasicObject
     alias_method :negative?, "!"
 
+    # Alternative to the double bang prefix notation returning the result of
+    # transtyping anything to either +true+ or +false+.
     def positive?
       !!self
     end
@@ -102,5 +106,10 @@ module Englishest
     alias deny? dissent?
     alias axe? dissent?
     # Note that :ban?, :nay?, :nix?, :ort? might have do the trick
+  end
+
+  # common numbers
+  def zero
+    0
   end
 end

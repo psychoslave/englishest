@@ -7,7 +7,7 @@ RSpec.describe Englishest do
 
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
-      (eval "Englishest::#{type}::ALIASES").each do |operator, monikers|
+      Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
         monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
         if %i[=~ !~].include? operator
           monikers.each { expect("a".send(operator, /a/)).to eq("a".send(_1, /a/)) }
@@ -25,38 +25,13 @@ RSpec.describe Englishest do
     end
 
     Englishest.covered_types.each do |type|
-      (eval "Englishest::#{type}::ALIASES").each do |operator, monikers|
+      Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
         expect(hypotetragramable?(monikers)).to be(true), "Fail on #{type}##{operator}"
       end
     end
   end
 
   it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do
-    <<~                           ❧ RAVELLED RATIONALE ☙
-                                            ❦
-
-      The basic idea here is to provide a list of word that end in -cede in
-      combination with prefixal morphemes marking logical, spatial or temporal
-      ordering, such as pre-, post-, etc.
-
-      The idea emerged as several words ending in -cede appeared at the first
-      list that was generated for these aliases. This was all the more amusing as
-      the same phenomenum occurs with -lect in Ruby enumerables for example.
-      Try `[].methods.grep(/lect$/)`. 😺
-
-      From an etymological point of view, -cede is attached to the Latin
-      cedere/cedo, meaning inter alia "to turn out, happen".
-
-      Both subcede and supercede are rather rare terms, but where still considered
-      relevant in the current scope. Supercede is a bit less rare, but generally
-      dictionaries will mark it as a misspell of supersede: this is not the case
-      here. Actually it turn out that both are judged relevant here, having
-      considered their respective etymologies.
-
-
-
-                                         ❦
-                               ❧ RAVELLED RATIONALE ☙
     # Stricly lower than
     expect(0.precede?(1)).to be true
     expect(0.antecede?(1)).to be true
@@ -76,6 +51,30 @@ RSpec.describe Englishest do
     expect(1.postcede?(0)).to be true
     expect(1.excede?(0)).to be true
     expect(1.supercede?(0)).to be true
+  end
+
+  it "provides a rationale behind the whimsy specifications on -cede word familly" do
+    <<~                           ❧ RAVELLED RATIONALE ☙
+                                            ❦
+
+      The basic idea here is to provide a list of word that end in -cede in
+      combination with prefixal morphemes marking logical, spatial or temporal
+      ordering, such as pre-, post-, etc.
+
+      The idea emerged as several words ending in -cede appeared at the first
+      list that was generated for these aliases.
+
+      From an etymological point of view, -cede is attached to the Latin
+      cedere/cedo, meaning inter alia "to turn out, happen".
+
+      Both subcede and supercede are rather rare terms, but where still considered
+      relevant in the current scope. Supercede is a bit less rare, but generally
+      dictionaries will mark it as a misspell of supersede: this is not the case
+      here. Actually it turn out that both are judged relevant here, having
+      considered their respective etymologies.
+
+                                         ❦
+                               ❧ RAVELLED RATIONALE ☙
   end
 
   it "is possible to express affirmation and denial through methods" do
@@ -102,8 +101,11 @@ RSpec.describe Englishest do
     expect(1.negative?).to be false
     expect(1.positive?).to be true
     # beware of precedence regarding unary negation prefixal operator
-    expect((!0).positive?).to be false
-    expect(!(0.positive?)).to be true
+    def zero
+      0
+    end
+    expect((!zero).positive?).to be false
+    expect(!zero.positive?).to be true # That is !(0.positive?)
     # nil should also stay with usual ruby semantic
     expect(nil.negative?).to be true
   end
