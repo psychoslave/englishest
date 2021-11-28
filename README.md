@@ -55,3 +55,6 @@ Resources consulted while hacking this gem:
 - https://bundler.io/guides/creating_gem.html
 - https://guides.rubygems.org/patterns/
 - http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
+- https://stackoverflow.com/questions/1356749/can-you-eval-code-in-the-context-of-a-caller-in-ruby
+- https://github.com/banister/binding_of_caller
+- https://www.geeksforgeeks.org/ruby-pre-define-variables-constants/
