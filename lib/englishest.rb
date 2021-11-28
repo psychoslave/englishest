@@ -28,16 +28,18 @@ module Englishest
     }.freeze
   end
 
-  module String
+  module Regexp
     ALIASES = {
-      '=~': %i[hit]
+      '=~': %i[hit index_of_first_matching],
+      # As a reminder unary prefixed match against $LAST_READ_LINE/$_
+      '~': %i[hot hit_tacitely index_of_first_hot_matching
+              index_of_first_matching_on_last_read_line],
     }.freeze
   end
 
-  module Regexp
+  module String
     ALIASES = {
-      '=~': %i[hit]
-      # TODO: unary ~ which matches rxp against the contents of $_
+      '=~': %i[hit index_of_first_matching],
     }.freeze
   end
 
@@ -58,7 +60,7 @@ module Englishest
   # Kernel#` which allow shell execution
 
   # TODO
-  # '=': %i[assign fix set],
+  # '=': %i[assign fix peg set],
 
   # Return list of submodules whose name matchas a class or module that is
   # affected by the gem
@@ -73,6 +75,8 @@ module Englishest
   # For each type containing an operator which is to be aliassed, reopen it
   # and generate aliases defined in the present eponimous submodules.
   types.zip(ilks).to_h.each do |type, ilk|
+    # TODO: try to get ride of this eval, the tricky part being the
+    # class/module alternance
     eval <<~RUBY, binding, __FILE__, __LINE__ + 1
       #{ilk} ::#{type}
         ::Englishest::#{type}::ALIASES.each do |operator, monikers|
@@ -106,10 +110,5 @@ module Englishest
     alias deny? dissent?
     alias axe? dissent?
     # Note that :ban?, :nay?, :nix?, :ort? might have do the trick
-  end
-
-  # common numbers
-  def zero
-    0
   end
 end

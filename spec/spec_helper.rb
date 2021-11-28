@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "englishest"
+# TODO: find a way to require this only when development mode is active
+require "byebug"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

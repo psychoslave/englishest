@@ -8,7 +8,12 @@ RSpec.describe Englishest do
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
       Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
-        monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
+        next if operator == :~
+
+        unless operator == :=~
+          monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
+        end
+
         if %i[=~ !~].include? operator
           monikers.each { expect("a".send(operator, /a/)).to eq("a".send(_1, /a/)) }
         else
@@ -100,13 +105,32 @@ RSpec.describe Englishest do
     expect(0.positive?).to be false
     expect(1.negative?).to be false
     expect(1.positive?).to be true
+
     # beware of precedence regarding unary negation prefixal operator
     def zero
+      # this is really to make Rubocop unoffensed…
       0
     end
     expect((!zero).positive?).to be false
     expect(!zero.positive?).to be true # That is !(0.positive?)
     # nil should also stay with usual ruby semantic
     expect(nil.negative?).to be true
+  end
+
+  it "enables to call the unary prefix matching operator with hit" do
+    $_ = 'Perl is Pathologically Eclectic™.'
+    $_ = <<~LARRY_WALL
+      There's really no way to fix this and still keep Perl pathologically
+      eclectic.
+    LARRY_WALL
+    expect(/ally/.hot).to eq 10
+    # TODO: define a method on Object that allow a prefixal call of the matching
+    # on $LAST_READ_LINE
+    #$LAST_READ_LINE = <<~YUKIHIRO_MATSUMOTO
+    #  Ruby inherited the Perl philosophy of having more than one way to do the
+    #  same thing. I inherited that philosophy from Larry Wall, who is my hero
+    #  actually.
+    #YUKIHIRO_MATSUMOTO
+    #expect(hot /ally/).to eq 133
   end
 end
