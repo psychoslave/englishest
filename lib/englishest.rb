@@ -85,6 +85,12 @@ module Englishest
     # TODO: try to get ride of this eval, the tricky part being the
     # class/module alternance
     eval <<~RUBY, binding, __FILE__, __LINE__ + 1
+      # This produce for example:
+      # class ::Object
+      #   ::Englishest::Object::ALIASES.each do |operator, monikers|
+      #     monikers.each{ alias_method _1, operator }
+      #   end
+      # end
       #{ilk} ::#{type}
         ::Englishest::#{type}::ALIASES.each do |operator, monikers|
           monikers.each{ alias_method _1, operator }
@@ -123,9 +129,11 @@ module Englishest
     # holds in the calling context must be retrieved by some means. Here the
     # retained implementation is to stash the value in a global variable each
     # time its value change.
-    trace_var :$LAST_READ_LINE, proc { |nub|
+    # TODO: see if this could be implemented withou global variable nor class
+    # variable, as both raising Rubocop offenses
+    trace_var(:$LAST_READ_LINE, proc { |nub|
       $LAST_PUT_LINE = nub
-    }
+    })
 
     def reach(pattern)
       $LAST_PUT_LINE =~ pattern

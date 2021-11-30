@@ -17,10 +17,15 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 120
 
+Style/GlobalVars:
+  AllowedVariables:
+    - $LAST_PUT_LINE
+
 Style/OptionalBooleanParameter:
   AllowedMethods:
     - consent?
     - dissent?
+
 Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
