@@ -123,11 +123,9 @@ module Englishest
     # holds in the calling context must be retrieved by some means. Here the
     # retained implementation is to stash the value in a global variable each
     # time its value change.
-    %i[$_ LAST_READ_LINE].each do |symbol|
-      trace_var symbol, proc { |nub|
-        $LAST_PUT_LINE = nub
-      }
-    end
+    trace_var :$LAST_READ_LINE, proc { |nub|
+      $LAST_PUT_LINE = nub
+    }
 
     def reach(pattern)
       $LAST_PUT_LINE =~ pattern
