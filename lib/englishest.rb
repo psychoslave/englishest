@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "englishest/version"
+require "English"
 
 # Encapsulate all the contrivances to allow a coding style using more English
 # vocabulary, especially enabling to express ideas without ideographi operators.
@@ -31,8 +32,14 @@ module Englishest
   module Regexp
     ALIASES = {
       '=~': %i[hit index_of_first_matching],
-      # As a reminder unary prefixed match against $LAST_READ_LINE/$_
-      '~': %i[hot hit_tacitely index_of_first_hot_matching
+      # As a reminder the tilde implicitely match against $LAST_READ_LINE/$_
+      # Ruby allow to call it both in suffixed and prefixed form, that is
+      # +some_regexp.~+ and +~some_regexp+.
+      #
+      # Note that these aliases cover only the case of a method call suffixing a
+      # Regexp object, like +some_regexp.index_of_first_hot_matching+. For a
+      # prefixed method expression form, see +Englishest#reach+ bellow.
+      '~': %i[hit_tacitely index_of_first_hot_matching hot
               index_of_first_matching_on_last_read_line],
     }.freeze
   end
@@ -108,7 +115,23 @@ module Englishest
       !equal?(topic)
     end
     alias deny? dissent?
+    # Note that :ban?, :nay?, :nix?, :ort? might also have do the trick as alias
     alias axe? dissent?
-    # Note that :ban?, :nay?, :nix?, :ort? might have do the trick
+
+    # $LAST_READ_LINE is locally binded, to define an synonymous method of the
+    # unary prefixal matching operator which implicitely use it, the value it
+    # holds in the calling context must be retrieved by some means. Here the
+    # retained implementation is to stash the value in a global variable each
+    # time its value change.
+    %i[$_ LAST_READ_LINE].each do |symbol|
+      trace_var symbol, proc { |nub|
+        $LAST_PUT_LINE = nub
+      }
+    end
+
+    def reach(pattern)
+      $LAST_PUT_LINE =~ pattern
+    end
+    alias_method :win, :reach
   end
 end

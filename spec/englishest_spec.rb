@@ -117,20 +117,20 @@ RSpec.describe Englishest do
     expect(nil.negative?).to be true
   end
 
-  it "enables to call the unary prefix matching operator with hit" do
-    $_ = 'Perl is Pathologically Eclectic™.'
+  it "enables to call the unary prefix matching operator with usual verbs" do
     $_ = <<~LARRY_WALL
       There's really no way to fix this and still keep Perl pathologically
       eclectic.
     LARRY_WALL
-    expect(/ally/.hot).to eq 10
-    # TODO: define a method on Object that allow a prefixal call of the matching
-    # on $LAST_READ_LINE
-    #$LAST_READ_LINE = <<~YUKIHIRO_MATSUMOTO
-    #  Ruby inherited the Perl philosophy of having more than one way to do the
-    #  same thing. I inherited that philosophy from Larry Wall, who is my hero
-    #  actually.
-    #YUKIHIRO_MATSUMOTO
-    #expect(hot /ally/).to eq 133
+    expect(/ally/.index_of_first_hot_matching).to eq ~ /ally/
+    expect(/ally/.hot).to eq /ally/.index_of_first_hot_matching
+
+    $LAST_READ_LINE = <<~YUKIHIRO_MATSUMOTO
+      Ruby inherited the Perl philosophy of having more than one way to do the
+      same thing. I inherited that philosophy from Larry Wall, who is my hero
+      actually.
+    YUKIHIRO_MATSUMOTO
+    expect(reach /ally/).to eq ~ /ally/
+    expect(win /ally/).to eq reach /ally/
   end
 end
