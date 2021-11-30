@@ -10,9 +10,7 @@ RSpec.describe Englishest do
       Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
         next if operator == :~
 
-        unless operator == :=~
-          monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) }
-        end
+        monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) } unless operator == :=~
 
         if %i[=~ !~].include? operator
           monikers.each { expect("a".send(operator, /a/)).to eq("a".send(_1, /a/)) }
@@ -123,14 +121,14 @@ RSpec.describe Englishest do
       eclectic.
     LARRY_WALL
     expect(/ally/.index_of_first_hot_matching).to eq ~ /ally/
-    expect(/ally/.hot).to eq /ally/.index_of_first_hot_matching
+    expect(/ally/.hot).to eq(/ally/.index_of_first_hot_matching)
 
     $LAST_READ_LINE = <<~YUKIHIRO_MATSUMOTO
       Ruby inherited the Perl philosophy of having more than one way to do the
       same thing. I inherited that philosophy from Larry Wall, who is my hero
       actually.
     YUKIHIRO_MATSUMOTO
-    expect(reach /ally/).to eq ~ /ally/
-    expect(win /ally/).to eq reach /ally/
+    expect(reach(/ally/)).to eq ~ /ally/
+    expect(win(/ally/)).to eq reach(/ally/)
   end
 end

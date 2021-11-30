@@ -10,9 +10,9 @@ module Englishest
 
   module BasicObject
     ALIASES = {
-      '==': %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
-      'equal?': %i[equireferent? peg? univocal?],
-      '!=': %i[dissent? inæqual inequal unequal? unlike? wry?]
+      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
+      equal?: %i[equireferent? peg? univocal?],
+      "!=": %i[dissent? inæqual inequal unequal? unlike? wry?]
       # TODO
       # '!': unary bivalent negation prefix aliasable has non-],
       # !
@@ -21,17 +21,17 @@ module Englishest
 
   module Object
     ALIASES = {
-      'eql?': %i[akin? equisummable? isoepitomizable? like? tie?],
-      '!~': %i[absent? devoid? off? miss?],
-      '<=>': %i[trichotomise trichotomize spy wye],
-      '===': %i[encompass? fit? gird?],
-      '=~': %i[hit]
+      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
+      "!~": %i[absent? devoid? off? miss?],
+      "<=>": %i[trichotomise trichotomize spy wye],
+      "===": %i[encompass? fit? gird?],
+      "=~": %i[hit]
     }.freeze
   end
 
   module Regexp
     ALIASES = {
-      '=~': %i[hit index_of_first_matching],
+      "=~": %i[hit index_of_first_matching],
       # As a reminder the tilde implicitely match against $LAST_READ_LINE/$_
       # Ruby allow to call it both in suffixed and prefixed form, that is
       # +some_regexp.~+ and +~some_regexp+.
@@ -39,26 +39,26 @@ module Englishest
       # Note that these aliases cover only the case of a method call suffixing a
       # Regexp object, like +some_regexp.index_of_first_hot_matching+. For a
       # prefixed method expression form, see +Englishest#reach+ bellow.
-      '~': %i[hit_tacitely index_of_first_hot_matching hot
-              index_of_first_matching_on_last_read_line],
+      "~": %i[hit_tacitely index_of_first_hot_matching hot
+              index_of_first_matching_on_last_read_line]
     }.freeze
   end
 
   module String
     ALIASES = {
-      '=~': %i[hit index_of_first_matching],
+      "=~": %i[hit index_of_first_matching]
     }.freeze
   end
 
   module Comparable
     ALIASES = {
-      '<': %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
+      "<": %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
               lower_than? prior? subcede? subceed? smaller_than? precede?],
-      '<=': %i[at_most? behind? ben? below? beneath? comprised? proconcede?
+      "<=": %i[at_most? behind? ben? below? beneath? comprised? proconcede?
                under? underneath? within?],
-      '==': %i[apt? concede?], # also has other aliases through BasicObject
-      '>=': %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
-      '>': %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede?
+      "==": %i[apt? concede?], # also has other aliases through BasicObject
+      ">=": %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
+      ">": %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede?
               supersede? superior_to? top? upper_than?]
     }.freeze
   end
@@ -130,6 +130,6 @@ module Englishest
     def reach(pattern)
       $LAST_PUT_LINE =~ pattern
     end
-    alias_method :win, :reach
+    alias win reach
   end
 end
