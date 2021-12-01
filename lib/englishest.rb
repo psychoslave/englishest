@@ -113,8 +113,8 @@ module Englishest
     # holds in the calling context must be retrieved by some means. Here the
     # retained implementation is to stash the value in a global variable each
     # time its value change.
-    # TODO: see if this could be implemented withou global variable nor class
-    # variable, as both raising Rubocop offenses
+    # TODO: see if this could be implemented without global variable nor class
+    # variable, as both are raising Rubocop offenses
     trace_var(:$LAST_READ_LINE, proc { |nub|
       $LAST_PUT_LINE = nub
     })
