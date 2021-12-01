@@ -3,9 +3,6 @@ AllCops:
   DisplayCopNames: true
   NewCops: enable
 
-Security/Eval:
-  Enabled: false
-
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes

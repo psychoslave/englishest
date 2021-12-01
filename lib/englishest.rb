@@ -38,7 +38,7 @@ module Englishest
       #
       # Note that these aliases cover only the case of a method call suffixing a
       # Regexp object, like +some_regexp.index_of_first_hot_matching+. For a
-      # prefixed method expression form, see +Englishest#reach+ bellow.
+      # prefixed method expression form, see +Englishest#spot+ bellow.
       "~": %i[hit_tacitely index_of_first_hot_matching hot
               index_of_first_matching_on_last_read_line]
     }.freeze
@@ -69,34 +69,18 @@ module Englishest
   # TODO
   # '=': %i[assign fix peg set],
 
-  # Return list of submodules whose name matchas a class or module that is
+  # Return list of submodules whose name matches a class or module that is
   # affected by the gem
   def self.covered_types
     Englishest.constants.grep_v(/VERSION|Error/)
   end
 
-  types = covered_types
-  # Reopening a type require to explicit its class (class or module),
-  # hereafter called ilk.
-  ilks = types.map { Object.const_get(_1).class.to_s.downcase }
-  # For each type containing an operator which is to be aliassed, reopen it
-  # and generate aliases defined in the present eponimous submodules.
-  types.zip(ilks).to_h.each do |type, ilk|
-    # TODO: try to get ride of this eval, the tricky part being the
-    # class/module alternance
-    eval <<~RUBY, binding, __FILE__, __LINE__ + 1
-      # This produce for example:
-      # class ::Object
-      #   ::Englishest::Object::ALIASES.each do |operator, monikers|
-      #     monikers.each{ alias_method _1, operator }
-      #   end
-      # end
-      #{ilk} ::#{type}
-        ::Englishest::#{type}::ALIASES.each do |operator, monikers|
-          monikers.each{ alias_method _1, operator }
-        end
+  covered_types.each do |type|
+    Object.const_get("::#{type}").class_eval do
+      Object.const_get("::Englishest::#{self}::ALIASES").each do |operator, monikers|
+        monikers.each { alias_method _1, operator }
       end
-    RUBY
+    end
   end
 
   # Treating some corner cases specifically
@@ -135,9 +119,10 @@ module Englishest
       $LAST_PUT_LINE = nub
     })
 
-    def reach(pattern)
+    def spot(pattern)
       $LAST_PUT_LINE =~ pattern
     end
-    alias win reach
+    alias win spot
+    alias reach spot
   end
 end

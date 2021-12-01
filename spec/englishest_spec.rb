@@ -7,7 +7,7 @@ RSpec.describe Englishest do
 
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
-      Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
+      Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
         next if operator == :~
 
         monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) } unless operator == :=~
@@ -28,7 +28,7 @@ RSpec.describe Englishest do
     end
 
     Englishest.covered_types.each do |type|
-      Object.const_get("Englishest::#{type}::ALIASES").each do |operator, monikers|
+      Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
         expect(hypotetragramable?(monikers)).to be(true), "Fail on #{type}##{operator}"
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe Englishest do
       same thing. I inherited that philosophy from Larry Wall, who is my hero
       actually.
     YUKIHIRO_MATSUMOTO
-    expect(reach(/ally/)).to eq ~ /ally/
-    expect(win(/ally/)).to eq reach(/ally/)
+    expect(spot(/ally/)).to eq ~ /ally/
+    expect(win(/ally/)).to eq spot(/ally/)
   end
 end
