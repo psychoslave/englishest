@@ -58,3 +58,4 @@ Resources consulted while hacking this gem:
 - https://stackoverflow.com/questions/1356749/can-you-eval-code-in-the-context-of-a-caller-in-ruby
 - https://github.com/banister/binding_of_caller
 - https://www.geeksforgeeks.org/ruby-pre-define-variables-constants/
+- https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds
