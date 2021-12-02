@@ -108,7 +108,7 @@ module Englishest
     # Note that :ban?, :nay?, :nix?, :ort? might also have do the trick as alias
     alias axe? dissent?
 
-    # $LAST_READ_LINE is locally binded, to define an synonymous method of the
+    # $LAST_READ_LINE is locally binded, to define a synonymous method of the
     # unary prefixal matching operator which implicitely use it, the value it
     # holds in the calling context must be retrieved by some means. Here the
     # retained implementation is to stash the value in a global variable each

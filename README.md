@@ -48,14 +48,15 @@ The gem is available as open source under the terms of the [MIT License](https:/
 # References
 
 Resources consulted while hacking this gem:
-- https://www.includehelp.com/ruby/alias-vs-alias_method-in-ruby.aspx
-- https://ruby-doc.org/core-2.5.0/Comparable.html
-- https://en.wikipedia.org/wiki/Trichotomy_(mathematics)
-- https://en.wikipedia.org/wiki/Three-way_comparison#Spaceship_operator
 - https://bundler.io/guides/creating_gem.html
-- https://guides.rubygems.org/patterns/
-- http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
-- https://stackoverflow.com/questions/1356749/can-you-eval-code-in-the-context-of-a-caller-in-ruby
+- https://en.wikipedia.org/wiki/Three-way_comparison#Spaceship_operator
+- https://en.wikipedia.org/wiki/Trichotomy_(mathematics)
 - https://github.com/banister/binding_of_caller
+- https://guides.rubygems.org/patterns/
+- https://guides.rubygems.org/patterns/
+- https://ruby-doc.org/core-2.5.0/Comparable.html
+- https://stackoverflow.com/questions/1356749/can-you-eval-code-in-the-context-of-a-caller-in-ruby
 - https://www.geeksforgeeks.org/ruby-pre-define-variables-constants/
+- https://www.includehelp.com/ruby/alias-vs-alias_method-in-ruby.aspx
 - https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds
+- http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
