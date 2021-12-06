@@ -8,7 +8,7 @@ RSpec.describe Englishest do
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
       Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
-        next if operator == :~
+        next if %i[~ !].include? operator
 
         monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) } unless operator == :=~
 
@@ -113,6 +113,14 @@ RSpec.describe Englishest do
     expect(!zero.positive?).to be true # That is !(0.positive?)
     # nil should also stay with usual ruby semantic
     expect(nil.negative?).to be true
+
+    expect(method(:positive?)).to eq method(:ok?)
+    expect(method(:positive?)).to eq method(:good?)
+    expect(method(:positive?)).to eq method(:pro?)
+
+    expect(method(:negative?)).to eq method(:con?)
+    expect(method(:negative?)).to eq method(:bad?)
+    expect(method(:negative?)).to eq method(:ko?)
   end
 
   it "enables to call the unary prefix matching operator with usual verbs" do

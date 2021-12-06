@@ -12,10 +12,10 @@ module Englishest
     ALIASES = {
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
       equal?: %i[equireferent? peg? univocal?],
-      "!=": %i[dissent? inæqual inequal unequal? unlike? wry?]
+      "!=": %i[dissent? inæqual inequal unequal? unlike? wry?],
+      "!": %i[bad? con? negative? ko?]
       # TODO
       # '!': unary bivalent negation prefix aliasable has non-],
-      # !
     }.freeze
   end
 
@@ -85,13 +85,15 @@ module Englishest
 
   # Treating some corner cases specifically
   class ::BasicObject
-    alias_method :negative?, "!"
 
     # Alternative to the double bang prefix notation returning the result of
     # transtyping anything to either +true+ or +false+.
     def positive?
       !!self
     end
+    alias good? positive?
+    alias ok? positive?
+    alias pro? positive?
 
     # Consent tacitely mean "compared to truth" when no topic is given
     def consent?(topic = true)
