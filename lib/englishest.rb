@@ -85,7 +85,6 @@ module Englishest
 
   # Treating some corner cases specifically
   class ::BasicObject
-
     # Alternative to the double bang prefix notation returning the result of
     # transtyping anything to either +true+ or +false+.
     def positive?
