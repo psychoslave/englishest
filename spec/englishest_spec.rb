@@ -8,7 +8,7 @@ RSpec.describe Englishest do
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
       Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
-        next if %i[~ !].include? operator
+        next if %i[~ ! __id__ __send__].include? operator
 
         monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) } unless operator == :=~
 
@@ -19,6 +19,22 @@ RSpec.describe Englishest do
         end
       end
     end
+  end
+
+  it "provides alternatives to terms using underscore" do
+    expect(method(:__id__)).to eq method(:bib)
+    expect(method(:__id__)).to eq method(:badge)
+    expect(method(:__id__)).to eq method(:bib)
+    expect(method(:__id__)).to eq method(:emblem)
+    expect(method(:__id__)).to eq method(:identifier)
+    expect(method(:__id__)).to eq method(:insigne)
+    expect(method(:__id__)).to eq method(:insignia)
+
+    expect(method(:__send__)).to eq method(:address)
+    expect(method(:__send__)).to eq method(:fax)
+    expect(method(:__send__)).to eq method(:hop)
+    expect(method(:__send__)).to eq method(:pst)
+    expect(method(:__send__)).to eq method(:transmit)
   end
 
   it "provides at least one trigram for each alias set (irrespective of punctuation signs)" do

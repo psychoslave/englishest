@@ -12,8 +12,10 @@ module Englishest
     ALIASES = {
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
       equal?: %i[equireferent? peg? univocal?],
-      "!=": %i[dissent? inæqual inequal unequal? unlike? wry?],
-      "!": %i[bad? con? negative? ko?]
+      "!=": %i[inæqual inequal unequal? unlike? wry?],
+      "!": %i[bad? con? negative? ko?],
+      "__id__": %i[badge bib emblem identifier insigne insignia],
+      "__send__": %i[address fax hop pst transmit]
       # TODO
       # '!': unary bivalent negation prefix aliasable has non-],
     }.freeze
@@ -21,7 +23,7 @@ module Englishest
 
   module Object
     ALIASES = {
-      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
+      "eql?": %i[akin? equisummable? isoepitomizable? like? tie?],
       "!~": %i[absent? devoid? off? miss?],
       "<=>": %i[trichotomise trichotomize spy wye],
       "===": %i[encompass? fit? gird?],
