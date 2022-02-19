@@ -9,9 +9,9 @@ RSpec.describe Englishest do
     Englishest.covered_types.each do |type|
       # List aliases whose identifier is strictly non-alphabetic
       operators = Object.const_get("::Englishest::#{type}::ALIASES")
-                        .select { _1 =~ /^[^:alph]*$/ }
+                        .select { _1 =~ /^[^[:alpha:]]*$/ }
       operators.each do |operator, monikers|
-        next if %i[~ ! __id__ __send__].include? operator
+        next if %i[~ ! `].include? operator
 
         monikers.each do
           # Integer does have an alias for =~, through Object, but it lakes those
@@ -34,6 +34,13 @@ RSpec.describe Englishest do
         end
       end
     end
+  end
+
+  it "provides wordy alternatives to backtilt subshell commands" do
+    expect(`echo 'Sample test'`).to eq(subshell("echo 'Sample test'"))
+    expect(`echo 'Sample test'`).to eq("echo 'Sample test'".subshell)
+    expect(`echo 'Sample test'`).to eq(run("echo 'Sample test'"))
+    expect(`echo 'Sample test'`).to eq("echo 'Sample test'".run)
   end
 
   it "provides alternatives to non-ideographic terms pertaining to equality" do

@@ -74,7 +74,8 @@ module Englishest
       "!~": %i[absent? devoid? off? miss?],
       "===": %i[encompass? fit? gird?],
       "=~": %i[hit],
-      "<=>": %i[trichotomise trichotomize spy wye]
+      "<=>": %i[trichotomise trichotomize spy wye],
+      "`": %i[subshell run]
     }.freeze
   end
 
@@ -87,6 +88,8 @@ module Englishest
     Englishest.constants.grep_v(/VERSION|Error/)
   end
 
+  # This make the bulk of the work of actually setting aliases, using ALIASES
+  # constant in submodules of Englishest
   covered_types.each do |type|
     Object.const_get("::#{type}").class_eval do
       Object.const_get("::Englishest::#{self}::ALIASES").each do |operator, monikers|
@@ -137,5 +140,14 @@ module Englishest
     end
     alias win spot
     alias reach spot
+  end
+
+  # Few additional feature that makes string more subject-verb oriented in an
+  # "everything is object" spirit
+  class ::String
+    def subshell
+      `#{self}`
+    end
+    alias run subshell
   end
 end
