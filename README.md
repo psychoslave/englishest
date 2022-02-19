@@ -60,3 +60,4 @@ Resources consulted while hacking this gem:
 - https://www.includehelp.com/ruby/alias-vs-alias_method-in-ruby.aspx
 - https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds
 - http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
+- https://www.saturnflyer.com/blog/the-difference-between-instanceeval-and-instanceexec/
