@@ -12,10 +12,16 @@ module Englishest
     ALIASES = {
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
       equal?: %i[equireferent? peg? univocal?],
-      "!=": %i[inæqual inequal unequal? unlike? wry?],
+      "!=": %i[inæqual? inequal? unequal? unlike? wry?],
       "!": %i[bad? con? negative? ko?],
-      "__id__": %i[badge bib emblem identifier insigne insignia],
-      "__send__": %i[address fax hop pst transmit]
+      __id__: %i[badge bib emblem identifier insigne insignia],
+      __send__: %i[address fax hop pst transmit],
+      instance_eval: %i[contextually so tho wis],
+      instance_exec: %i[aptly pat plumb suitably],
+      method_missing: %i[gap lake vacant on_vacancy way_off],
+      singleton_method_added: %i[hail hey hi on_attachment], # tie would match, but eql? will need a new short synonym
+      singleton_method_removed: %i[ban ciao leave_taking on_detachment],
+      singleton_method_undefined: %i[farewell nix on_unattachment]
       # TODO
       # '!': unary bivalent negation prefix aliasable has non-],
     }.freeze
@@ -23,7 +29,7 @@ module Englishest
 
   module Object
     ALIASES = {
-      "eql?": %i[akin? equisummable? isoepitomizable? like? tie?],
+      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
       "!~": %i[absent? devoid? off? miss?],
       "<=>": %i[trichotomise trichotomize spy wye],
       "===": %i[encompass? fit? gird?],
