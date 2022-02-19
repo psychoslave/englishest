@@ -61,3 +61,4 @@ Resources consulted while hacking this gem:
 - https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds
 - http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
 - https://www.saturnflyer.com/blog/the-difference-between-instanceeval-and-instanceexec/
+- https://dejimata.com/2017/5/20/the-ruby-module-builder-pattern
