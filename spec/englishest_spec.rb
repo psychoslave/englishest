@@ -7,11 +7,26 @@ RSpec.describe Englishest do
 
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
-      Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
+      # List aliases whose identifier is strictly non-alphabetic
+      operators = Object.const_get("::Englishest::#{type}::ALIASES")
+                        .select { _1 =~ /^[^:alph]*$/ }
+      operators.each do |operator, monikers|
         next if %i[~ ! __id__ __send__].include? operator
 
-        monikers.each { expect(1.send(operator, 1)).to eq(1.send(_1, 1)) } unless operator == :=~
+        monikers.each do
+          # Integer does have an alias for =~, through Object, but it lakes those
+          # specific to regular expressions, so we skip related test
+          next if operator == :=~ && _1 == :index_of_first_matching
 
+          # In all other cases, it is expected that aliases have the same effect
+          # than the integer diadic operator, i.e. +1 == 1+ and +1.apt? 1+ are
+          # evaluated to the same value.
+          expect(1.send(operator, 1)).to eq(1.send(_1, 1))
+        end
+
+        # Compare evaluation of string operator against identic string with
+        # their aliases counterparts, or using a matching regular expression
+        # where adequate.
         if %i[=~ !~].include? operator
           monikers.each { expect("a".send(operator, /a/)).to eq("a".send(_1, /a/)) }
         else
