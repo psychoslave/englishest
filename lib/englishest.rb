@@ -29,11 +29,6 @@ module Englishest
 
   module Object
     ALIASES = {
-      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
-      "!~": %i[absent? devoid? off? miss?],
-      "<=>": %i[trichotomise trichotomize spy wye],
-      "===": %i[encompass? fit? gird?],
-      "=~": %i[hit]
     }.freeze
   end
 
@@ -73,6 +68,15 @@ module Englishest
 
   # TODO
   # Kernel#` which allow shell execution
+  module Kernel
+    ALIASES = {
+      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
+      "!~": %i[absent? devoid? off? miss?],
+      "===": %i[encompass? fit? gird?],
+      "=~": %i[hit],
+      "<=>": %i[trichotomise trichotomize spy wye]
+    }.freeze
+  end
 
   # TODO
   # '=': %i[assign fix peg set],

@@ -36,6 +36,16 @@ RSpec.describe Englishest do
     end
   end
 
+  it "provides alternatives to non-ideographic terms pertaining to equality" do
+    expect(method(:eql?)).to eq method(:akin?)
+    expect(method(:eql?)).to eq method(:equisummable?)
+    expect(method(:eql?)).to eq method(:like?)
+    expect(method(:eql?)).to eq method(:tie?)
+
+    expect(method(:equal?)).to eq method(:peg?)
+    expect(method(:equal?)).to eq method(:equireferent?)
+  end
+
   it "provides alternatives to terms using underscore" do
     expect(method(:__id__)).to eq method(:bib)
     expect(method(:__id__)).to eq method(:badge)
