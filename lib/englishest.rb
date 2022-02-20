@@ -150,7 +150,7 @@ module Englishest
   end
 
   # SystemCallError has also a *class* method named `===`
-  class SystemCallError
+  class ::SystemCallError
     class << self
       alias encompass? ===
       alias fit? ===
