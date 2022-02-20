@@ -66,8 +66,6 @@ module Englishest
     }.freeze
   end
 
-  # TODO
-  # Kernel#` which allow shell execution
   module Kernel
     ALIASES = {
       eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
@@ -149,5 +147,14 @@ module Englishest
       `#{self}`
     end
     alias run subshell
+  end
+
+  # SystemCallError has also a *class* method named `===`
+  class SystemCallError
+    class << self
+      alias encompass? ===
+      alias fit? ===
+      alias gird? ===
+   end
   end
 end
