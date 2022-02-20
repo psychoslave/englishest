@@ -149,12 +149,21 @@ module Englishest
     alias run subshell
   end
 
-  # SystemCallError has also a *class* method named `===`
+  # SystemCallError has also a *class* method named +===+
   class ::SystemCallError
     class << self
       alias encompass? ===
       alias fit? ===
       alias gird? ===
+   end
+  end
+
+  # Array has a class method +[]+ to create new instance encompassing parameters
+  class ::Array
+    class << self
+      alias create []
+      alias engender []
+      alias gig []
    end
   end
 end

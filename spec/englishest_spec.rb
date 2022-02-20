@@ -36,7 +36,13 @@ RSpec.describe Englishest do
     end
   end
 
-  it "provides wordy alternatives to backtilt subshell commands" do
+  it "provides lexicalized alternatives to square brackets Array creation notation" do
+    expect([1, :a, "a"]).to eq(Array.create(1, :a, "a"))
+    expect([1, :a, "a"]).to eq(Array.gig(1, :a, "a"))
+    expect([1, :a, "a"]).to eq(Array.engender(1, :a, "a"))
+  end
+
+  it "provides lexicalized alternatives to backtilt subshell commands" do
     expect(`echo 'Sample test'`).to eq(subshell("echo 'Sample test'"))
     expect(`echo 'Sample test'`).to eq("echo 'Sample test'".subshell)
     expect(`echo 'Sample test'`).to eq(run("echo 'Sample test'"))
