@@ -62,3 +62,7 @@ Resources consulted while hacking this gem:
 - http://www.rubyinside.com/rubys-unary-operators-and-how-to-redefine-their-functionality-5610.html
 - https://www.saturnflyer.com/blog/the-difference-between-instanceeval-and-instanceexec/
 - https://dejimata.com/2017/5/20/the-ruby-module-builder-pattern
+- https://stackoverflow.com/questions/51138274/list-all-ruby-classes-and-methods
+- https://stackoverflow.com/questions/12274652/what-is-argf-class-in-ruby-1-9
+- https://c-for-dummies.com/blog/?p=4813
+- https://en.wikipedia.org/wiki/Glob_(programming)

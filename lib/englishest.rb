@@ -166,4 +166,31 @@ module Englishest
       alias gig []
    end
   end
+
+  # Dir has a class method +[]+ which is equivalent to +Dir.glob([string,...], 0)+
+  #
+  # The +0+ passed as last argument is a flag that indicates case sensitivity.
+  # Given that +File::FNM_SYSCASE+ is defined as system default case
+  # insensitiveness, equals to +FNM_CASEFOLD+ or 0, it means that the expansion
+  # will match file name depending on how system consider case sensitivity.
+  #
+  # For information, FNM stands for "filename match". Indeed, from an historical
+  # perspective, the +glob+ UNIX command is usually based on the +fnmatch+
+  # function, which tests for whether a string matches a given pattern.
+  #
+  # In other word this method allows to access files matching the expansion of a
+  # string including wildcard characters while using system case conformity.
+  class ::Dir
+    class << self
+      # Alignment on semantic: a thing conforms to a set of rules, with a norm or
+      # standard, that is a system.
+      alias conform []
+      # Alignment with the original lexic
+      alias native_global_match []
+      # trigram somehow aligned with the notion of *global*
+      alias orb []
+      # Shorter synonym of conform
+      alias suit []
+   end
+  end
 end

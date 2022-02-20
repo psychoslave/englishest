@@ -42,6 +42,14 @@ RSpec.describe Englishest do
     expect([1, :a, "a"]).to eq(Array.engender(1, :a, "a"))
   end
 
+  it "provides lexicalized alternatives to square brackets Dir matching" do
+    pattern = "*[CR]*"
+    expect(Dir.conform(pattern)).to eq(Dir[pattern])
+    expect(Dir.native_global_match(pattern)).to eq(Dir[pattern])
+    expect(Dir.orb(pattern)).to eq(Dir[pattern])
+    expect(Dir.suit(pattern)).to eq(Dir[pattern])
+  end
+
   it "provides lexicalized alternatives to backtilt subshell commands" do
     expect(`echo 'Sample test'`).to eq(subshell("echo 'Sample test'"))
     expect(`echo 'Sample test'`).to eq("echo 'Sample test'".subshell)
