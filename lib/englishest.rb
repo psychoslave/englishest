@@ -163,6 +163,7 @@ module Englishest
     class << self
       alias create []
       alias engender []
+      alias generate []
       alias gig []
    end
   end

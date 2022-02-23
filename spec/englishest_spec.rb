@@ -39,6 +39,7 @@ RSpec.describe Englishest do
   it "provides lexicalized alternatives to square brackets Array creation notation" do
     expect([1, :a, "a"]).to eq(Array.create(1, :a, "a"))
     expect([1, :a, "a"]).to eq(Array.gig(1, :a, "a"))
+    expect([1, :a, "a"]).to eq(Array.generate(1, :a, "a"))
     expect([1, :a, "a"]).to eq(Array.engender(1, :a, "a"))
   end
 
