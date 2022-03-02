@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dir
   ##
   # :singleton-method: []
@@ -34,4 +36,3 @@ class Dir
   # :singleton-method: suit
   # Alias for +[]+ shorter synonym of conform, with the same justifying semantic.
 end
-

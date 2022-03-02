@@ -119,11 +119,12 @@ module Englishest
       # Define aliases of singleton methods if such a list is provided
       begin
         class << self
-          Object.const_get("::Englishest::#{self.to_s.split(?:).last.chomp(?>)}::SINGLETON_METHOD_ALIASES").each do |operator, monikers|
+          aim = "::Englishest::#{to_s.split(":").last.chomp(">")}::SINGLETON_METHOD_ALIASES"
+          Object.const_get(aim).each do |operator, monikers|
             monikers.each { alias_method _1, operator }
           end
         end
-      rescue NameError => e
+      rescue NameError
         # No singleton/instance method defined for this class, it's fine.
       end
     end
@@ -173,6 +174,9 @@ module Englishest
     alias reach spot
   end
 
+  # A String object has an arbitrary sequence of bytes, typically representing
+  # text or binary data. Extensions provided by this library focus on making
+  # more specific features around String usable with more classic lexical calls.
   class ::String
     # Allow to method-pipeline strings toward a subshell execution, in more
     # subject-verb oriented manner than the default backtilt +``. Subjectively
