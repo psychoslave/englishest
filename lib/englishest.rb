@@ -8,6 +8,14 @@ require "English"
 module Englishest
   class Error < StandardError; end
 
+  module Array
+    # List of aliases provided for each class method indexed by its identifier
+    SINGLETON_METHOD_ALIASES = {
+      # create a new instance encompassing parameters
+      "[]": %i[create engender generate gig]
+    }.freeze
+  end
+
   module BasicObject
     ALIASES = {
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
@@ -19,24 +27,26 @@ module Englishest
       instance_eval: %i[contextually so tho wis],
       instance_exec: %i[aptly pat plumb suitably],
       method_missing: %i[gap lake vacant on_vacancy way_off],
-      singleton_method_added: %i[hail hey hi on_attachment], # tie would match, but eql? will need a new short synonym
+      singleton_method_added: %i[hail hey hi on_attachment],
       singleton_method_removed: %i[ban ciao leave_taking on_detachment],
       singleton_method_undefined: %i[farewell nix on_unattachment]
-      # TODO
-      # '!': unary bivalent negation prefix aliasable has non-],
     }.freeze
   end
 
-  module Object
-    ALIASES = {
+  module Dir
+    SINGLETON_METHOD_ALIASES = {
+      "[]": %i[conform native_global_match orb suit]
     }.freeze
   end
 
   module Regexp
+    # List of aliases provided for each instance method indexed by its identifier
     ALIASES = {
       "=~": %i[hit index_of_first_matching],
-      # As a reminder the tilde implicitely match against $LAST_READ_LINE/$_
-      # Ruby allow to call it both in suffixed and prefixed form, that is
+      # As a reminder the tilde implicitely match against +$LAST_READ_LINE+
+      # (aka +$_+).
+      #
+      # Ruby allows to call it both in suffixed and prefixed form, that is
       # +some_regexp.~+ and +~some_regexp+.
       #
       # Note that these aliases cover only the case of a method call suffixing a
@@ -50,6 +60,13 @@ module Englishest
   module String
     ALIASES = {
       "=~": %i[hit index_of_first_matching]
+    }.freeze
+  end
+
+  module SystemCallError
+    # List of aliases provided for each class method indexed by its identifier
+    SINGLETON_METHOD_ALIASES = {
+      "===": %i[encompass? fit? gird?]
     }.freeze
   end
 
@@ -90,8 +107,24 @@ module Englishest
   # constant in submodules of Englishest
   covered_types.each do |type|
     Object.const_get("::#{type}").class_eval do
-      Object.const_get("::Englishest::#{self}::ALIASES").each do |operator, monikers|
-        monikers.each { alias_method _1, operator }
+      # Define aliases of instance methods if such a list is provided
+      begin
+        Object.const_get("::Englishest::#{self}::ALIASES").each do |operator, monikers|
+          monikers.each { alias_method _1, operator }
+        end
+      rescue NameError
+        # No instance method defined for this class, it's fine.
+      end
+
+      # Define aliases of singleton methods if such a list is provided
+      begin
+        class << self
+          Object.const_get("::Englishest::#{self.to_s.split(?:).last.chomp(?>)}::SINGLETON_METHOD_ALIASES").each do |operator, monikers|
+            monikers.each { alias_method _1, operator }
+          end
+        end
+      rescue NameError => e
+        # No singleton/instance method defined for this class, it's fine.
       end
     end
   end
@@ -122,13 +155,13 @@ module Englishest
     # Note that :ban?, :nay?, :nix?, :ort? might also have do the trick as alias
     alias axe? dissent?
 
+    ##
+    #
     # $LAST_READ_LINE is locally binded, to define a synonymous method of the
     # unary prefixal matching operator which implicitely use it, the value it
     # holds in the calling context must be retrieved by some means. Here the
     # retained implementation is to stash the value in a global variable each
     # time its value change.
-    # TODO: see if this could be implemented without global variable nor class
-    # variable, as both are raising Rubocop offenses
     trace_var(:$LAST_READ_LINE, proc { |nub|
       $LAST_PUT_LINE = nub
     })
@@ -140,58 +173,16 @@ module Englishest
     alias reach spot
   end
 
-  # Few additional feature that makes string more subject-verb oriented in an
-  # "everything is object" spirit
   class ::String
+    # Allow to method-pipeline strings toward a subshell execution, in more
+    # subject-verb oriented manner than the default backtilt +``. Subjectively
+    # that can also be considered more aligned with the "everything is object"
+    # spirit
     def subshell
       `#{self}`
     end
+    # Trigraph which, albeit a bit less precise on what it undercover than its
+    # aliased version, is fully alligned with regular use of the word.
     alias run subshell
-  end
-
-  # SystemCallError has also a *class* method named +===+
-  class ::SystemCallError
-    class << self
-      alias encompass? ===
-      alias fit? ===
-      alias gird? ===
-   end
-  end
-
-  # Array has a class method +[]+ to create new instance encompassing parameters
-  class ::Array
-    class << self
-      alias create []
-      alias engender []
-      alias generate []
-      alias gig []
-   end
-  end
-
-  # Dir has a class method +[]+ which is equivalent to +Dir.glob([string,...], 0)+
-  #
-  # The +0+ passed as last argument is a flag that indicates case sensitivity.
-  # Given that +File::FNM_SYSCASE+ is defined as system default case
-  # insensitiveness, equals to +FNM_CASEFOLD+ or 0, it means that the expansion
-  # will match file name depending on how system consider case sensitivity.
-  #
-  # For information, FNM stands for "filename match". Indeed, from an historical
-  # perspective, the +glob+ UNIX command is usually based on the +fnmatch+
-  # function, which tests for whether a string matches a given pattern.
-  #
-  # In other word this method allows to access files matching the expansion of a
-  # string including wildcard characters while using system case conformity.
-  class ::Dir
-    class << self
-      # Alignment on semantic: a thing conforms to a set of rules, with a norm or
-      # standard, that is a system.
-      alias conform []
-      # Alignment with the original lexic
-      alias native_global_match []
-      # trigram somehow aligned with the notion of *global*
-      alias orb []
-      # Shorter synonym of conform
-      alias suit []
-   end
   end
 end
