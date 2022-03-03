@@ -66,3 +66,6 @@ Resources consulted while hacking this gem:
 - https://stackoverflow.com/questions/12274652/what-is-argf-class-in-ruby-1-9
 - https://c-for-dummies.com/blog/?p=4813
 - https://en.wikipedia.org/wiki/Glob_(programming)
+- https://learning.oreilly.com/library/view/metaprogramming-ruby-2/9781941222751/
+- https://learning.oreilly.com/library/view/the-book-of/9781593272944/
+- https://learning.oreilly.com/library/view/polished-ruby-programming/9781801072724/
