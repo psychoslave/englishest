@@ -51,7 +51,7 @@ module Englishest
       #
       # Note that these aliases cover only the case of a method call suffixing a
       # Regexp object, like +some_regexp.index_of_first_hot_matching+. For a
-      # prefixed method expression form, see +Englishest#spot+ bellow.
+      # prefixed method expression form, see +Englishest#spot+.
       "~": %i[hit_tacitely index_of_first_hot_matching hot
               index_of_first_matching_on_last_read_line]
     }.freeze

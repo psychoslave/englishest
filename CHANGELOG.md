@@ -1,5 +1,29 @@
 ## [Unreleased]
 
+## [0.2.0] - 2022-03-05
+
+- Move alises previously defined in Object to Kernel, as all aimed methods belong
+  to it.
+- Add methods
+  - `String#subshell`: allow to execute a command without using backticks
+- Add aliases for
+  - `Array::[]`: create engender generate gig
+  - `BasicObject#!`: bad? con? negative? ko?
+  - `BasicObject#__id__`: badge bib emblem identifier insigne insignia
+  - `BasicObject#!=`: inæqual? inequal? unequal? unlike? wry?
+  - `BasicObject#instance_eval`: contextually so tho wis
+  - `BasicObject#instance_exec`: aptly pat plumb suitably
+  - `BasicObject#method_missing`: gap lake vacant on_vacancy way_off
+  - `BasicObject#__send__`: address fax hop pst transmit
+  - `BasicObject#singleton_method_added`: hail hey hi on_attachment
+  - `BasicObject#singleton_method_removed`: ban ciao leave_taking on_detachment
+  - `BasicObject#singleton_method_undefined`: farewell nix on_unattachment]
+  - `Dir::[]`: conform native_global_match orb suit
+  - ``Kernel#```: subshell run
+  - `String#subshell`: run
+  - `SystemCallError::===`: encompass? fit? gird?
+
+
 ## [0.1.0] - 2021-12-01
 
 - Initial release
