@@ -17,7 +17,7 @@ module Englishest
   end
 
   module BasicObject
-    ALIASES = {
+    INSTANCE_METHOD_ALIASES = {
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
       equal?: %i[equireferent? peg? univocal?],
       "!=": %i[inæqual? inequal? unequal? unlike? wry?],
@@ -41,7 +41,7 @@ module Englishest
 
   module Regexp
     # List of aliases provided for each instance method indexed by its identifier
-    ALIASES = {
+    INSTANCE_METHOD_ALIASES = {
       "=~": %i[hit index_of_first_matching],
       # As a reminder the tilde implicitely match against +$LAST_READ_LINE+
       # (aka +$_+).
@@ -58,7 +58,7 @@ module Englishest
   end
 
   module String
-    ALIASES = {
+    INSTANCE_METHOD_ALIASES = {
       "=~": %i[hit index_of_first_matching]
     }.freeze
   end
@@ -71,7 +71,7 @@ module Englishest
   end
 
   module Comparable
-    ALIASES = {
+    INSTANCE_METHOD_ALIASES = {
       "<": %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
               lower_than? prior? subcede? subceed? smaller_than? precede?],
       "<=": %i[at_most? behind? ben? below? beneath? comprised? proconcede?
@@ -84,7 +84,7 @@ module Englishest
   end
 
   module Kernel
-    ALIASES = {
+    INSTANCE_METHOD_ALIASES = {
       eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
       "!~": %i[absent? devoid? off? miss?],
       "===": %i[encompass? fit? gird?],
@@ -103,13 +103,13 @@ module Englishest
     Englishest.constants.grep_v(/VERSION|Error/)
   end
 
-  # This make the bulk of the work of actually setting aliases, using ALIASES
+  # This make the bulk of the work of actually setting aliases, using INSTANCE_METHOD_ALIASES
   # constant in submodules of Englishest
   covered_types.each do |type|
     Object.const_get("::#{type}").class_eval do
       # Define aliases of instance methods if such a list is provided
       begin
-        Object.const_get("::Englishest::#{self}::ALIASES").each do |operator, monikers|
+        Object.const_get("::Englishest::#{self}::INSTANCE_METHOD_ALIASES").each do |operator, monikers|
           monikers.each { alias_method _1, operator }
         end
       rescue NameError

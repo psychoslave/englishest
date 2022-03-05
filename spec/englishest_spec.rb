@@ -8,7 +8,7 @@ RSpec.describe Englishest do
   it "enables to call ideographic operators with aliased methods" do
     Englishest.covered_types.each do |type|
       # List aliases whose identifier is strictly non-alphabetic
-      operators = Object.const_get("::Englishest::#{type}::ALIASES")
+      operators = Object.const_get("::Englishest::#{type}::INSTANCE_METHOD_ALIASES")
                         .select { _1 =~ /^[^[:alpha:]]*$/ }
       operators.each do |operator, monikers|
         next if %i[~ ! `].include? operator
@@ -93,7 +93,7 @@ RSpec.describe Englishest do
     end
 
     Englishest.covered_types.each do |type|
-      Object.const_get("::Englishest::#{type}::ALIASES").each do |operator, monikers|
+      Object.const_get("::Englishest::#{type}::INSTANCE_METHOD_ALIASES").each do |operator, monikers|
         expect(hypotetragramable?(monikers)).to be(true), "Fail on #{type}##{operator}"
       end
     rescue NameError
