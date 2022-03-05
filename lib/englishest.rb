@@ -8,6 +8,12 @@ require "English"
 module Englishest
   class Error < StandardError; end
 
+  # Return list of submodules whose name matches a class or module that is
+  # affected by the gem
+  def self.covered_types
+    Englishest.constants.grep_v(/VERSION|Error/)
+  end
+
   module Array
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {
@@ -94,15 +100,6 @@ module Englishest
     }.freeze
   end
 
-  # TODO
-  # '=': %i[assign fix peg set],
-
-  # Return list of submodules whose name matches a class or module that is
-  # affected by the gem
-  def self.covered_types
-    Englishest.constants.grep_v(/VERSION|Error/)
-  end
-
   # This make the bulk of the work of actually setting aliases, using INSTANCE_METHOD_ALIASES
   # constant in submodules of Englishest
   covered_types.each do |type|
@@ -141,19 +138,27 @@ module Englishest
     alias ok? positive?
     alias pro? positive?
 
-    # Consent tacitely mean "compared to truth" when no topic is given
+    # Alternative to +equal?+, with a default value of +true+ for the provided
+    # argument.
+    # Semantically, the idea is that consenting tacitely means
+    # "agreeing with truthness" of some expressed topic
+    #
+    # For the opposite test, +dissent?+ and its aliases is provided.
     def consent?(topic = true)
       equal? topic
     end
+    # This provides a
     alias nod? consent?
 
-    # Opposite of consent, although this is implemented as a fully automous
+    # Opposite of +consent?+, although this is implemented as a fully automous
     # determination, which inter alia avoid some technical convonlutions
     def dissent?(topic = true)
       !equal?(topic)
     end
     alias deny? dissent?
-    # Note that :ban?, :nay?, :nix?, :ort? might also have do the trick as alias
+    # Note that +ban?+, +nay?+, +nix?+, +ort?+ might also have do the trick as
+    # alias but +axe?+ was considered the most appropriate and others were kept
+    # for potential use in other contexts.
     alias axe? dissent?
 
     ##
