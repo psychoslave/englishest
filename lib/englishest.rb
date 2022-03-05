@@ -178,10 +178,18 @@ module Englishest
   # text or binary data. Extensions provided by this library focus on making
   # more specific features around String usable with more classic lexical calls.
   class ::String
-    # Allow to method-pipeline strings toward a subshell execution, in more
-    # subject-verb oriented manner than the default backtilt +``. Subjectively
-    # that can also be considered more aligned with the "everything is object"
-    # spirit
+    # Allows to method-pipeline strings toward a subshell execution, in a more
+    # subject-verb oriented manner than the default backtilt notation provided
+    # by +Kernel#`+. Subjectively that can also be considered more aligned with
+    # the "everything is object" spirit.
+    #
+    # The built-in syntax <tt>%x{...}</tt> is also an other option to achieve
+    # the same facility.
+    # All these mecanisms, including this very method, have the ide effect of
+    # setting +$?+ to the process status.
+    #
+    # @return [String] Returns the standard output of running the calling string
+    # in a subshell.
     def subshell
       `#{self}`
     end
