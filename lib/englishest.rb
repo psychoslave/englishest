@@ -223,6 +223,14 @@ module Englishest
     }.freeze
   end
 
+  module Warning
+    # List of aliases provided for each class method indexed by its identifier
+    SINGLETON_METHOD_ALIASES = {
+      "[]=": %i[in],
+      "[]": %i[of]
+    }.freeze
+  end
+
   # This make the bulk of the work of actually setting aliases, using INSTANCE_METHOD_ALIASES
   # constant in submodules of Englishest
   covered_types.each do |type|

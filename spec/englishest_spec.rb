@@ -38,6 +38,11 @@ RSpec.describe Englishest do
     end
   end
 
+  it "provides lexicalized alternatives to square bracket Warning notations" do
+    expect(Warning.method(:of)).to eq Warning.method(:[])
+    expect(Warning.method(:in)).to eq Warning.method(:[]=)
+  end
+
   it "provides lexicalized alternatives to square bracket ENV notations" do
     expect(ENV.method(:jet)).to eq ENV.method(:[])
     expect(ENV.method(:sow)).to eq ENV.method(:[]=)
