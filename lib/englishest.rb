@@ -6,12 +6,127 @@ require "English"
 # Encapsulate all the contrivances to allow a coding style using more English
 # vocabulary, especially enabling to express ideas without ideographi operators.
 module Englishest
+  # Class usable to throw errors specifically related to the Englishest module.
   class Error < StandardError; end
 
   # Return list of submodules whose name matches a class or module that is
   # affected by the gem
   def self.covered_types
     Englishest.constants.grep_v(/VERSION|Error/)
+  end
+
+  # BasicObject is the parent class of all classes in Ruby. It's an explicit
+  # blank class.
+  #
+  # Only two instance methods related to +equal?+ are added here, as well as
+  # a global method to replace the +~+ unary prefix matching operator.
+  class ::BasicObject
+    # Alternative to the double bang prefix notation returning the result of
+    # transtyping anything to either +true+ or +false+.
+    def positive?
+      !!self
+    end
+    alias good? positive?
+    alias ok? positive?
+    alias pro? positive?
+
+    # Alternative to +equal?+, with a default value of +true+ for the provided
+    # argument.
+    # Semantically, the idea is that consenting tacitely means
+    # "agreeing with truthness" of some expressed topic
+    #
+    # For the opposite test, +dissent?+ and its aliases is provided.
+    def consent?(topic = true)
+      equal? topic
+    end
+    # This provides a
+    alias nod? consent?
+
+    # Opposite of +consent?+, although this is implemented as a fully automous
+    # determination, which inter alia avoid some technical convonlutions
+    def dissent?(topic = true)
+      !equal?(topic)
+    end
+    alias deny? dissent?
+    # Note that +ban?+, +nay?+, +nix?+, +ort?+ might also have do the trick as
+    # alias but +axe?+ was considered the most appropriate and others were kept
+    # for potential use in other contexts.
+    alias axe? dissent?
+
+    ##
+    #
+    # $LAST_READ_LINE is locally binded, to define a synonymous method of the
+    # unary prefixal matching operator which implicitely use it, the value it
+    # holds in the calling context must be retrieved by some means. Here the
+    # retained implementation is to stash the value in a global variable each
+    # time its value change.
+    trace_var(:$LAST_READ_LINE, proc { |nub|
+      $LAST_PUT_LINE = nub
+    })
+
+    def spot(pattern)
+      $LAST_PUT_LINE =~ pattern
+    end
+    alias win spot
+    alias reach spot
+  end
+
+  # ENV is a hash-like accessor for environment variables.
+  ENV.singleton_class.class_eval do
+    ##
+    # :singleton-method: ENV::[name]
+    # Returns the value for the environment variable +name+ if it exists.
+    #
+    # Note that unlike +ENV::fetch+, this method does not raise any error if the
+    # requested key is valid and not set, but simply returns +nil+.
+    #
+    # This difference of behavior is taken into account in provided aliases.
+
+    ##
+    # Alternative to +ENV::[]+, that is, returns the value for the environment
+    # variable name if it exists.
+    #
+    # This alias provide a trigraph which is moreover lexically close to the
+    # classical get/set accessor identifiers. This let +get+ as a possible
+    # alias for fetch, while giving a good hint on the fact that this method
+    # is generally a quicker accessor – with less safety net.
+    #
+    # Merriam-Webster gives the following pertaining definition for jet:
+    # transitive verb : to emit in a stream : spout
+    # See: https://www.merriam-webster.com/dictionary/jet
+    alias_method :jet, :[]
+
+    ##
+    # Trigraph alternative to +ENV::[]=+ and +ENV::store+.
+    #
+    # Merriam-Webster gives the following pertaining definition for sow:
+    # To spread abroad; to propagate.
+    # See: https://www.merriam-webster.com/dictionary/sow
+    alias_method :sow, :[]=
+  end
+
+  # A String object has an arbitrary sequence of bytes, typically representing
+  # text or binary data. Extensions provided by this library focus on making
+  # more specific features around String usable with more classic lexical calls.
+  class ::String
+    # Allows to method-pipeline strings toward a subshell execution, in a more
+    # subject-verb oriented manner than the default backtilt notation provided
+    # by +Kernel#`+. Subjectively that can also be considered more aligned with
+    # the "everything is object" spirit.
+    #
+    # The built-in syntax <tt>%x{...}</tt> is also an other option to achieve
+    # the same facility.
+    # All these mecanisms, including this very method, have the ide effect of
+    # setting +$?+ to the process status.
+    #
+    # @return [String] Returns the standard output of running the calling string
+    # in a subshell.
+    def subshell
+      `#{self}`
+    end
+    # Trigraph which, albeit a bit less precise on what it undercover than its
+    # aliased version, is fully alligned with regular use of the word.
+    alias run subshell
   end
 
   module Array
@@ -125,81 +240,5 @@ module Englishest
         # No singleton/instance method defined for this class, it's fine.
       end
     end
-  end
-
-  # Treating some corner cases specifically
-  class ::BasicObject
-    # Alternative to the double bang prefix notation returning the result of
-    # transtyping anything to either +true+ or +false+.
-    def positive?
-      !!self
-    end
-    alias good? positive?
-    alias ok? positive?
-    alias pro? positive?
-
-    # Alternative to +equal?+, with a default value of +true+ for the provided
-    # argument.
-    # Semantically, the idea is that consenting tacitely means
-    # "agreeing with truthness" of some expressed topic
-    #
-    # For the opposite test, +dissent?+ and its aliases is provided.
-    def consent?(topic = true)
-      equal? topic
-    end
-    # This provides a
-    alias nod? consent?
-
-    # Opposite of +consent?+, although this is implemented as a fully automous
-    # determination, which inter alia avoid some technical convonlutions
-    def dissent?(topic = true)
-      !equal?(topic)
-    end
-    alias deny? dissent?
-    # Note that +ban?+, +nay?+, +nix?+, +ort?+ might also have do the trick as
-    # alias but +axe?+ was considered the most appropriate and others were kept
-    # for potential use in other contexts.
-    alias axe? dissent?
-
-    ##
-    #
-    # $LAST_READ_LINE is locally binded, to define a synonymous method of the
-    # unary prefixal matching operator which implicitely use it, the value it
-    # holds in the calling context must be retrieved by some means. Here the
-    # retained implementation is to stash the value in a global variable each
-    # time its value change.
-    trace_var(:$LAST_READ_LINE, proc { |nub|
-      $LAST_PUT_LINE = nub
-    })
-
-    def spot(pattern)
-      $LAST_PUT_LINE =~ pattern
-    end
-    alias win spot
-    alias reach spot
-  end
-
-  # A String object has an arbitrary sequence of bytes, typically representing
-  # text or binary data. Extensions provided by this library focus on making
-  # more specific features around String usable with more classic lexical calls.
-  class ::String
-    # Allows to method-pipeline strings toward a subshell execution, in a more
-    # subject-verb oriented manner than the default backtilt notation provided
-    # by +Kernel#`+. Subjectively that can also be considered more aligned with
-    # the "everything is object" spirit.
-    #
-    # The built-in syntax <tt>%x{...}</tt> is also an other option to achieve
-    # the same facility.
-    # All these mecanisms, including this very method, have the ide effect of
-    # setting +$?+ to the process status.
-    #
-    # @return [String] Returns the standard output of running the calling string
-    # in a subshell.
-    def subshell
-      `#{self}`
-    end
-    # Trigraph which, albeit a bit less precise on what it undercover than its
-    # aliased version, is fully alligned with regular use of the word.
-    alias run subshell
   end
 end

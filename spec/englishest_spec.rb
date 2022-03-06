@@ -38,6 +38,11 @@ RSpec.describe Englishest do
     end
   end
 
+  it "provides lexicalized alternatives to square bracket ENV notations" do
+    expect(ENV.method(:jet)).to eq ENV.method(:[])
+    expect(ENV.method(:sow)).to eq ENV.method(:[]=)
+  end
+
   it "provides lexicalized alternatives to square brackets Array creation notation" do
     expect([1, :a, "a"]).to eq(Array.create(1, :a, "a"))
     expect([1, :a, "a"]).to eq(Array.gig(1, :a, "a"))

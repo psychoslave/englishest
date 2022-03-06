@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Objects of class Dir are directory streams representing directories in the
+# underlying file system. They provide a variety of ways to list directories and
+# their contents.
 class Dir
   ##
   # :singleton-method: []
