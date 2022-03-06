@@ -43,6 +43,13 @@ RSpec.describe Englishest do
     expect(ENV.method(:sow)).to eq ENV.method(:[]=)
   end
 
+  it "provides lexicalized alternatives to square bracket Hash notation" do
+    expect(Hash.method(:create)).to eq Hash.method(:[])
+    expect(Hash.method(:gig)).to eq Hash.method(:[])
+    expect(Hash.method(:generate)).to eq Hash.method(:[])
+    expect(Hash.method(:engender)).to eq Hash.method(:[])
+  end
+
   it "provides lexicalized alternatives to square brackets Array creation notation" do
     expect([1, :a, "a"]).to eq(Array.create(1, :a, "a"))
     expect([1, :a, "a"]).to eq(Array.gig(1, :a, "a"))

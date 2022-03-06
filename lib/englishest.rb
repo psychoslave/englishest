@@ -160,6 +160,14 @@ module Englishest
     }.freeze
   end
 
+  module Hash
+    # List of aliases provided for each class method indexed by its identifier
+    SINGLETON_METHOD_ALIASES = {
+      # create a new instance encompassing parameters
+      "[]": %i[create engender generate gig]
+    }.freeze
+  end
+
   module Regexp
     # List of aliases provided for each instance method indexed by its identifier
     INSTANCE_METHOD_ALIASES = {
