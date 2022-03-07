@@ -70,3 +70,4 @@ Resources consulted while hacking this gem:
 - https://learning.oreilly.com/library/view/the-book-of/9781593272944/
 - https://learning.oreilly.com/library/view/polished-ruby-programming/9781801072724/
 - https://stackoverflow.com/a/4471202/1307778   
+- http://tech.natemurray.com/2007/03/ruby-shell-commands.html
