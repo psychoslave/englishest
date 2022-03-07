@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
     to ideograms/logograms such as the so called *spaceship operator*.
 
     The name of the gem is of course a pun: a library which provides ability
-    to utter coder which is closer to a voiceable English obviously ought to do it
+    to utter code which is closer to a voiceable English ought to do it
     so through an obvious transgression of this language usual rules on superlatives.
   ABOUT
   spec.homepage      = "https://github.com/psychoslave/englishest"
