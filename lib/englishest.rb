@@ -122,7 +122,7 @@ module Englishest
     # Additional options, which don’t return the command output as call result, are:
     #   - +Kernel#exec+
     #   - +Kernel#spawn+
-    #   - +Kernel#system+ 
+    #   - +Kernel#system+
     #
     # @return [String] Returns the standard output of running the calling string
     # in a subshell.
