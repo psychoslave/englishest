@@ -116,8 +116,13 @@ module Englishest
     #
     # The built-in syntax <tt>%x{...}</tt> is also an other option to achieve
     # the same facility.
-    # All these mecanisms, including this very method, have the ide effect of
+    # All these mecanisms, including this very method, have the side effect of
     # setting +$?+ to the process status.
+    #
+    # Additional options, which don’t return the command output as call result, are:
+    #   - +Kernel#exec+
+    #   - +Kernel#spawn+
+    #   - +Kernel#system+ 
     #
     # @return [String] Returns the standard output of running the calling string
     # in a subshell.
