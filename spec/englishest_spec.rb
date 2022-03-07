@@ -38,6 +38,11 @@ RSpec.describe Englishest do
     end
   end
 
+  it "provides regular verb alternatives to ObjectSpace::_id2ref" do
+    expect(ObjectSpace.method(:denote)).to eq ObjectSpace.method(:_id2ref)
+    expect(ObjectSpace.method(:tab)).to eq ObjectSpace.method(:_id2ref)
+  end
+
   it "provides lexicalized alternatives to square bracket Warning notations" do
     expect(Warning.method(:of)).to eq Warning.method(:[])
     expect(Warning.method(:in)).to eq Warning.method(:[]=)

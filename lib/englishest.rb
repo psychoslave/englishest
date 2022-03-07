@@ -105,6 +105,31 @@ module Englishest
     alias_method :sow, :[]=
   end
 
+  # The ObjectSpace module contains a number of routines that interact
+  # with the garbage collection facility and allow you to traverse all
+  # living objects with an iterator.
+  module ::ObjectSpace
+    class << self
+      ##
+      # :method:  _id2ref
+      # Converts an object id to a reference to the object.
+      # May not be called on an object id passed as a parameter to a finalizer.
+
+      ##
+      # Alternative regular verb to the underscorpe prefixed +_id2ref+.
+      # Merriam-Webster gives the following pertaining definitionn for denote:
+      # - to serve as a linguistic expression of the notion of : mean
+      # - to stand for : designate
+      alias denote _id2ref
+
+      ##
+      # Trigraph alternative regular verb to the underscorpe prefixed +_id2ref+.
+      # Merriam-Webster gives the following pertaining definitionn for tab:
+      # to single out : designate
+      alias tab _id2ref
+    end
+  end
+
   # A String object has an arbitrary sequence of bytes, typically representing
   # text or binary data. Extensions provided by this library focus on making
   # more specific features around String usable with more classic lexical calls.
