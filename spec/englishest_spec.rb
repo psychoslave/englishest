@@ -38,9 +38,36 @@ RSpec.describe Englishest do
     end
   end
 
-  it "provides regular verb alternatives to ObjectSpace::_id2ref" do
-    expect(ObjectSpace.method(:denote)).to eq ObjectSpace.method(:_id2ref)
-    expect(ObjectSpace.method(:tab)).to eq ObjectSpace.method(:_id2ref)
+  it "provides regular verb alternatives to usual artihmetic operators" do
+    # Tests regarding the modulo operator
+    # Note that +#modulo+ is actually part of the standard library, so it is not
+    # tested here. Also Complexe doesn't come with a +#%+ or %#modulo+ method
+    # in the standard librabry.
+    expect(Numeric.new.method(:lap).original_name).to eq Numeric.new.method(:%).name
+    expect(5.lap(3)).to eq 2
+    expect(5.5.lap(2)).to eq 1.5
+    expect(5.5r.lap(2)).to eq 3/2r
+    expect(5.lap(3)).to eq 2
+    # addition
+    expect(5.add(3)).to eq 8
+    expect(5.5.append(2)).to eq 7.5
+    expect(5.5r.plus(2)).to eq 15/2r
+    # expect(5i.supplement 3).to eq (3+5i)
+    # substraction
+    expect(5.deduct(3)).to eq 2
+    expect(5.5.minus(2)).to eq 3.5
+    expect(5.5r.mow(2)).to eq 7/2r
+    # expect(5i.remove 3).to eq (3+5i)
+    # multiplacation
+    expect(5.cross(3)).to eq 15
+    expect(5.5.dot(2)).to eq 11.0
+    expect(5.5r.ex(2)).to eq 11/1r
+    # expect(5i.multiply 3).to eq (3+5i)
+    # division
+    expect(5.cut(3)).to eq 1
+    expect(5.5.divide(2)).to eq 2.75
+    expect(5.5r.split(2)).to eq 11/4r
+    # expect(5i.supplement 3).to eq (3+5i)
   end
 
   it "provides lexicalized alternatives to square bracket Warning notations" do

@@ -69,5 +69,8 @@ Resources consulted while hacking this gem:
 - https://learning.oreilly.com/library/view/metaprogramming-ruby-2/9781941222751/
 - https://learning.oreilly.com/library/view/the-book-of/9781593272944/
 - https://learning.oreilly.com/library/view/polished-ruby-programming/9781801072724/
-- https://stackoverflow.com/a/4471202/1307778   
+- https://stackoverflow.com/a/4471202/1307778
 - http://tech.natemurray.com/2007/03/ruby-shell-commands.html
+- https://stackoverflow.com/questions/7829157/method-overriding-in-ruby#7829215
+- https://stackoverflow.com/questions/27965944/ruby-check-number-of-arguments-passed-from-instantiated-class-to-the-method-of
+- https://stackoverflow.com/questions/4683844/ruby-how-do-i-pass-all-parameters-and-blocks-received-by-one-method-to-another

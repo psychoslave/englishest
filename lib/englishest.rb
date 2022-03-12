@@ -116,10 +116,12 @@ module Englishest
       # May not be called on an object id passed as a parameter to a finalizer.
 
       ##
+      # :method:  denote
       # Alternative regular verb to the underscorpe prefixed +_id2ref+.
       # Merriam-Webster gives the following pertaining definitionn for denote:
       # - to serve as a linguistic expression of the notion of : mean
       # - to stand for : designate
+      # TODO: this doc seems ignored by Rdoc, understand why and fix this.
       alias denote _id2ref
 
       ##
@@ -196,6 +198,56 @@ module Englishest
       # create a new instance encompassing parameters
       "[]": %i[create engender generate gig]
     }.freeze
+  end
+
+  module Numeric
+    INSTANCE_METHOD_ALIASES = {
+      # Regarding lap, Merriam-Webster gives the following relevant definitions:
+      # - to overtake and thereby lead or increase the lead over (another
+      #   contestant) by a full circuit of a racecourse
+      # - to complete the circuit of (a racecourse)
+      # - to project beyond or spread over something
+      #
+      # That seems a good fit to provide a shorter term than *modulo* without
+      # resorting on an apocope like *mod*.
+      "%": %i[lap],
+      "+": %i[add append plus supplement],
+      # Regarding mow, Merriam-Webster provides the following relavant definition:
+      # - to cut down with a scythe or sickle or machine
+      "-": %i[deduct minus mow remove substract],
+      # Note that *ex* is an alternative pronounciation of the more frequent
+      # *times* as pronounciation of the cross multiplication symbol, <tt>×</tt>
+      # whose glyph is close to a ex latin letter <tt>x</tt>.
+      #
+      # In the same vein, *dot* refers to the mid-line dot symbol <tt>⋅</tt>
+      # also commonly employed as a mean to denote multiplication.
+      #
+      # Of course in Ruby, +#times+ is already used to create loops.
+      # This is why a specific overload of this method is required specifically
+      # to make the identifier callable in both cases.
+      #
+      "*": %i[cross dot ex multiply],
+      # Regarding cut, Merriam-Webster provides the following relavant definition:
+      # - to divide into shares : split
+      "/": %i[cut divide split]
+    }.freeze
+  end
+
+  # TODO: for some reason, this doesn't work for Complex
+  module Complex; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+  module Float; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+  module Integer; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+  module Rational; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+
+  # Holds Integer values.
+  class ::Integer
+    alias times_loop times
+
+    def times(*fad, &block)
+      return (self * fad.first) if fad.size == 1
+
+      times_loop(*fad, &block)
+    end
   end
 
   module Regexp
