@@ -246,7 +246,6 @@ module Englishest
     }.freeze
   end
 
-  # TODO: for some reason, this doesn't work for Complex
   module Complex; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
   module Float; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
   module Integer; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
@@ -256,12 +255,24 @@ module Englishest
   class ::Integer
     alias times_loop times
 
+    # Synonym of +#*+ if a single argument is given, loop other n-times over the
+    # passed block otherwise.
     def times(*fad, &block)
       return (self * fad.first) if fad.size == 1
 
       times_loop(*fad, &block)
     end
   end
+
+  # Bidimensionnal float number
+  class ::Complex; alias times *; end
+  # Float objects represent inexact real numbers using the native architecture's
+  # double-precision floating point representation.$
+  class ::Float; alias times *; end
+  # A rational number can be represented as a pair of integer numbers: a/b (b>0),
+  # where a is the numerator and b is the denominator. Integer a equals rational
+  # a/1 mathematically.
+  class ::Rational; alias times *; end
 
   module Regexp
     # List of aliases provided for each instance method indexed by its identifier
@@ -333,6 +344,11 @@ module Englishest
       # Define aliases of instance methods if such a list is provided
       begin
         Object.const_get("::Englishest::#{self}::INSTANCE_METHOD_ALIASES").each do |operator, monikers|
+          # Somehow dirty, but Complex#% is not defined in the standard library
+          # so this avoids to raise a NameError and dismiss all aliases copied
+          # from Numeric.
+          next if to_s == "Complex" && operator == :%
+
           monikers.each { alias_method _1, operator }
         end
       rescue NameError

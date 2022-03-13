@@ -52,27 +52,27 @@ RSpec.describe Englishest do
     expect(5.add(3)).to eq 8
     expect(5.5.append(2)).to eq 7.5
     expect(5.5r.plus(2)).to eq 15/2r
-    # expect(5i.supplement 3).to eq (3+5i)
+    expect(5i.supplement(3)).to eq(3 + 5i)
     # substraction
     expect(5.deduct(3)).to eq 2
     expect(5.5.minus(2)).to eq 3.5
     expect(5.5r.mow(2)).to eq 7/2r
-    # expect(5i.remove 3).to eq (3+5i)
+    expect(5i.remove(3)).to eq(-3 + 5i)
     # multiplacation
     expect(5.cross(3)).to eq 15
     expect(5.5.dot(2)).to eq 11.0
     expect(5.5r.ex(2)).to eq 11/1r
-    # expect(5i.multiply 3).to eq (3+5i)
+    expect(5i.multiply(3)).to eq(15i)
     # division
     expect(5.cut(3)).to eq 1
     expect(5.5.divide(2)).to eq 2.75
     expect(5.5r.split(2)).to eq 11/4r
-    # expect(5i.supplement 3).to eq (3+5i)
+    expect(5i.cut(3)).to eq(Complex(0, 5/3r))
     # exponentiation
     expect(5.exponent(3)).to eq 125
     expect(5.5.power(2)).to eq 30.25
     expect(5.5r.vis(2)).to eq 121/4r
-    # expect(5i.wax 3).to eq (-125i)
+    expect(5i.wax(3)).to eq(-125i)
   end
 
   it "provides lexicalized alternatives to square bracket Warning notations" do
