@@ -68,6 +68,11 @@ RSpec.describe Englishest do
     expect(5.5.divide(2)).to eq 2.75
     expect(5.5r.split(2)).to eq 11/4r
     # expect(5i.supplement 3).to eq (3+5i)
+    # exponentiation
+    expect(5.exponent(3)).to eq 125
+    expect(5.5.power(2)).to eq 30.25
+    expect(5.5r.vis(2)).to eq 121/4r
+    # expect(5i.wax 3).to eq (-125i)
   end
 
   it "provides lexicalized alternatives to square bracket Warning notations" do

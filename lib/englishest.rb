@@ -214,7 +214,10 @@ module Englishest
       "+": %i[add append plus supplement],
       # Regarding mow, Merriam-Webster provides the following relavant definition:
       # - to cut down with a scythe or sickle or machine
-      "-": %i[deduct minus mow remove substract],
+      # Regarding lop:
+      # a : to remove superfluous parts from
+      # b : to eliminate as unnecessary or undesirable
+      "-": %i[deduct minus lop mow remove substract],
       # Note that *ex* is an alternative pronounciation of the more frequent
       # *times* as pronounciation of the cross multiplication symbol, <tt>×</tt>
       # whose glyph is close to a ex latin letter <tt>x</tt>.
@@ -229,7 +232,17 @@ module Englishest
       "*": %i[cross dot ex multiply],
       # Regarding cut, Merriam-Webster provides the following relavant definition:
       # - to divide into shares : split
-      "/": %i[cut divide split]
+      "/": %i[cut divide split],
+      # Tip:
+      #  1 : to register weight
+      #  2 : to shift the balance of power or influence
+      # Vis:
+      #     Force; energy; might; power.
+      # Wax:
+      # a : to increase in size, numbers, strength, prosperity, or intensity
+      # b : to grow in volume or duration
+      # c : to grow toward full development
+      "**": %i[exponent power raised_to_the_power to_the tip vis wax weighted]
     }.freeze
   end
 
