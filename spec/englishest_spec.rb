@@ -75,6 +75,12 @@ RSpec.describe Englishest do
     expect(5i.wax(3)).to eq(-125i)
   end
 
+  it "provides lexicalized trigraph alternatives to Range#step Range#%" do
+    expect((0..1).method(:bar).original_name).to eq (0..1).method(:%).name
+    expect((0..1).method(:hop).original_name).to eq (0..1).method(:%).name
+    expect((0..1).method(:pas).original_name).to eq (0..1).method(:%).name
+  end
+
   it "provides lexicalized alternatives to square bracket Warning notations" do
     expect(Warning.method(:of)).to eq Warning.method(:[])
     expect(Warning.method(:in)).to eq Warning.method(:[]=)

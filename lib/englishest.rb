@@ -200,6 +200,21 @@ module Englishest
     }.freeze
   end
 
+  module Range
+    INSTANCE_METHOD_ALIASES = {
+      # Standard library already define +step+ as synonym of +%+.
+      # Wiktionary provides the following definition for *bar*:
+      # - A prescribed quantity or extent; moderation, temperance.
+      # - Any level of achievement regarded as a challenge to be overcome.
+      #
+      # Merriam-Webster gives the following definition for *hop*
+      # - to move by a quick springy leap or in a series of leaps
+      # and the following for *pas*
+      # - a dance step or combination of steps
+      "%": %i[bar hop pas]
+    }.freeze
+  end
+
   module Numeric
     INSTANCE_METHOD_ALIASES = {
       # Regarding lap, Merriam-Webster gives the following relevant definitions:
