@@ -309,7 +309,16 @@ module Englishest
 
   module String
     INSTANCE_METHOD_ALIASES = {
-      "=~": %i[hit index_of_first_matching]
+      "=~": %i[hit index_of_first_matching],
+      # Merriam-Webster gives the following relevant definition for *rim*
+      # - to serve as a rim for
+      # And for *fix*
+      # - to give a permanent or final form to
+      # And for *hem*
+      # - to surround in a restrictive manner
+      # And for *saw*
+      # - to produce or form by cutting with a saw
+      "%": %i[form format fix form hem shape rim saw]
     }.freeze
   end
 

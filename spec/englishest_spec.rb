@@ -75,6 +75,16 @@ RSpec.describe Englishest do
     expect(5i.wax(3)).to eq(-125i)
   end
 
+  it "provides lexicalized alternatives to String#%, including trigraphs" do
+    expect("".method(:fix).original_name).to eq "".method(:%).name
+    expect("".method(:format).original_name).to eq "".method(:%).name
+    expect("".method(:form).original_name).to eq "".method(:%).name
+    expect("".method(:hem).original_name).to eq "".method(:%).name
+    expect("".method(:rim).original_name).to eq "".method(:%).name
+    expect("".method(:saw).original_name).to eq "".method(:%).name
+    expect("".method(:shape).original_name).to eq "".method(:%).name
+  end
+
   it "provides lexicalized trigraph alternatives to Range#step Range#%" do
     expect((0..1).method(:bar).original_name).to eq (0..1).method(:%).name
     expect((0..1).method(:hop).original_name).to eq (0..1).method(:%).name
