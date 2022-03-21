@@ -15,12 +15,12 @@ module Englishest
     Englishest.constants.grep_v(/VERSION|Error/)
   end
 
-  # BasicObject is the parent class of all classes in Ruby. It's an explicit
-  # blank class.
+  # Object is the default root of all Ruby objects.
+  # Methods on Object are available to all classes unless explicitly overridden.
   #
   # Only two instance methods related to +equal?+ are added here, as well as
   # a global method to replace the +~+ unary prefix matching operator.
-  class ::BasicObject
+  class ::Object
     # Alternative to the double bang prefix notation returning the result of
     # transtyping anything to either +true+ or +false+.
     def positive?
