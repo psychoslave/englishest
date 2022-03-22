@@ -74,3 +74,6 @@ Resources consulted while hacking this gem:
 - https://stackoverflow.com/questions/7829157/method-overriding-in-ruby#7829215
 - https://stackoverflow.com/questions/27965944/ruby-check-number-of-arguments-passed-from-instantiated-class-to-the-method-of
 - https://stackoverflow.com/questions/4683844/ruby-how-do-i-pass-all-parameters-and-blocks-received-by-one-method-to-another
+- https://stackoverflow.com/questions/21257595/ruby-difference-between-and
+- https://en.wikipedia.org/wiki/Evaluation_strategy#Eager_evaluation
+- https://en.wikipedia.org/wiki/Short-circuit_evaluation
