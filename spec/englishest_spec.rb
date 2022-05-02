@@ -92,7 +92,7 @@ RSpec.describe Englishest do
   end
 
   it "provides lexicalized alternatives to square bracket Warning notations" do
-    expect(Warning.method(:of)).to eq Warning.method(:[])
+    expect(Warning.method(:at)).to eq Warning.method(:[])
     expect(Warning.method(:in)).to eq Warning.method(:[]=)
   end
 
@@ -108,6 +108,39 @@ RSpec.describe Englishest do
     expect(Hash.method(:engender)).to eq Hash.method(:[])
   end
 
+  it "provides lexicalized alternatives to basic operators on Array" do
+    # +#&+ is basically the set of common elements between both arrays
+    expect([].method(:common).original_name).to eq [].method(:&).name
+    expect([].method(:conjunction).original_name).to eq [].method(:&).name
+    expect([].method(:cross).original_name).to eq [].method(:&).name
+    expect([].method(:fay).original_name).to eq [].method(:&).name
+    expect([].method(:junction).original_name).to eq [].method(:&).name
+    expect([].method(:shared).original_name).to eq [].method(:&).name
+
+    # +#*+ stands for "join repeatly", with either a whole or a string parameter
+    %i[autoecholalia autofuse autoloop dub din echo replicate repeat
+       scale selfappend selfconcatenate selfduplicate
+       selfexalt selfinsert selfpush selfreplicate].each do |term|
+      expect([].method(term).original_name).to eq [].method(:*).name
+    end
+
+    expect([].method(:add).original_name).to eq [].method(:+).name
+    expect([].method(:plus).original_name).to eq [].method(:+).name
+
+    # Actually :== is defined in Comparable, and :<=> in Kernel, but this make
+    # the local test set more thourough.
+    expect([].method(:apt?).original_name).to eq [].method(:==).name
+    expect([].method(:wye).original_name).to eq [].method(:<=>).name
+
+    expect([].method(:absorb).original_name).to eq [].method(:<<).name
+    expect([].method(:sap).original_name).to eq [].method(:<<).name
+
+    expect([].method(:of).original_name).to eq [].method(:[]).name
+    expect([].method(:lay).original_name).to eq [].method(:[]=).name
+  end
+  # TODO
+  # it "provides terms with the morph -mix- for all modifying Array methods" do
+  # end
   it "provides lexicalized alternatives to square brackets Array creation notation" do
     expect([1, :a, "a"]).to eq(Array.create(1, :a, "a"))
     expect([1, :a, "a"]).to eq(Array.gig(1, :a, "a"))
@@ -164,7 +197,7 @@ RSpec.describe Englishest do
 
     Englishest.covered_types.each do |type|
       Object.const_get("::Englishest::#{type}::INSTANCE_METHOD_ALIASES").each do |operator, monikers|
-        expect(hypotetragramable?(monikers)).to be(true), "Fail on #{type}##{operator}"
+        expect(hypotetragramable?(monikers.push(operator))).to be(true), "Fail on #{type}##{operator}"
       end
     rescue NameError
       # No singleton/instance method defined for this class, it's fine.
@@ -186,6 +219,7 @@ RSpec.describe Englishest do
 
     # Greater than or equal to
     expect(1.prosupercede?(0)).to be true
+    expect(1.prosupercede?(1)).to be true
 
     # Strictly greater than
     expect(1.postcede?(0)).to be true
@@ -230,7 +264,7 @@ RSpec.describe Englishest do
 
     expect(true.dissent?).to be false
     expect(true.deny?).to be false
-    expect(true.axe?).to be false
+    expect(true.nix?).to be false
     expect((1 + 1).dissent?(2)).to be false
     expect((1 + 1).dissent?(3)).to be true
     # Numeric conventions should still hold

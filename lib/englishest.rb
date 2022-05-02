@@ -48,10 +48,11 @@ module Englishest
       !equal?(topic)
     end
     alias deny? dissent?
-    # Note that +ban?+, +nay?+, +nix?+, +ort?+ might also have do the trick as
-    # alias but +axe?+ was considered the most appropriate and others were kept
-    # for potential use in other contexts.
-    alias axe? dissent?
+    # Note that +axe?+, +ban?+, +nay?+, +nix?+ and +ort?+ have also been
+    # considered, but were reserved for other uses or dismissed as too uncommon
+    # Cambridge dictionary gives "to stop, prevent, or refuse to accept
+    # something" for *nix*.
+    alias nix? dissent?
 
     ##
     #
@@ -167,6 +168,118 @@ module Englishest
       # create a new instance encompassing parameters
       "[]": %i[create engender generate gig]
     }.freeze
+
+    INSTANCE_METHOD_ALIASES = {
+      # Supplement changingly +self+ inserting +object+ at provided coordinates
+      # Return +object+
+      "[]=": %i[lay in],
+      "[]": %i[of],
+      # Merriam-Webster gives "to fit or join closely or tightly" for *fay*
+      # Wiktionary gives "The place of intersection where one roll touches
+      # another" for *nip*
+      "&": %i[common conjunction fay cross intermix junction nip shared],
+      # Disjunction with +other_array+
+      # Wiktionary gives "To join or commit to, more or less permanently, as
+      # if in marriage" for *wed*.
+      "|": %i[twain disjunction duo conglomerate unit ambimix synthesis wed whole],
+      # Disjunction with +other_arrays+
+      # Wiktionary gives "To form a thick, tangled mess; to interweave into, or
+      # like, a mat; to entangle" for *mat*.
+      union: %i[ally commingle entangle entwine intermingle intertwine
+                interweave mat panmix],
+      # Merriam-Webster gives the following relevant definition for *din*
+      # - to impress by insistent repetition
+      # Wiktionary gives "To make a copy from an original or master audio tape"
+      # for *dub*.
+      "*": %i[autoecholalia autofuse autoloop dub din echo endomix replicate
+              repeat scale selfappend selfconcatenate selfduplicate
+              selfexalt selfinsert selfpush selfreplicate],
+      # Supplement preservingly +self+ with entries from +other_array+
+      # Return the still unasigned result
+      "+": %i[add bemix fuse plus],
+
+      # Supplement changingly +self+ at +index+ with +objects+ .
+      # Return +self+
+      # Wiktionary gives "To put into a sack" for *bag*.
+      # Wiktionary gives "To place inside a box; to pack in one or more boxes"
+      # for *box*.
+      insert: %i[bag box mixin],
+      # Supplement changingly +self+ at forefront with +objects+.
+      # Return +self+
+      # Note that +prepend+ is already an alias
+      unshift: %i[spill tip foremix],
+
+      # Supplement changingly +self+ with entries from +other_object+
+      # Note that +other_object+ is incorporated as a single element, even if
+      # it is another Array.
+      # Return +self+
+      # Wikitionary gives "To drain, suck or absorb from (tree, etc.)" for
+      # *sap*. It also gives "To drink heartily; to tipple" for *bib*, but it's
+      # considered here better to let it unused in this sense so *bib* can be
+      # employed as a short synonym of identifier, refering to it as noun with
+      # sense "A rectangular piece of material, carrying a bib number,
+      # worn as identification by entrants in a race."
+      "<<": %i[absorb assimilate blend immix incorporate mix sap],
+      # Supplement changingly +self+ with entries from +*other_objects+
+      # Return +self+
+      # Note that +append+ is already an alias
+      # Wiktionary gives "To place into a metal can (ie. a tin; be it tin,
+      # steel, aluminum) in order to preserve" for *tin*,
+      # Wiktionary gives "To put a lid on (something)" for *lid*.
+      # Merriam-Webster gives "affix, attach" for *fix*.
+      push: %i[affix admix annex attach fasten hang fix lid suffix tin],
+      # Supplement changingly +self+ with entries from +*other_arrays*
+      # Return +self+
+      # Wiktionary gives "to enclose by sewing" for *sew*.
+      concat: %i[associate chain concatenate couple infuse
+                 commix integrate intermingle sew],
+
+      # Withdraw preservingly elements from +self+ which are not present in
+      # +other_array+
+      # Return the still unasigned result
+      "-": %i[deduct mow minus part substract unmix withhold],
+      # Withdraw preservingly elements from +self+ which are not present in any
+      # +other_arrays+
+      # Return the still unasigned result
+      difference: %i[bar exomix omit without],
+      pop: %i[outmix],
+      map: %i[transmix],
+      map!: %i[transmix!],
+      shift: %i[ebb mixoff],
+      compact: %i[cram lop prune psycnomix],
+      compact!: %i[cram! lop! prune! psycnomix!],
+      delete: %i[ban exclude demix],
+      delete_at: %i[off demixin],
+      delete_if: %i[beyond demixupon dismiss out past rid],
+      # Wiktionary gives "(mining) To sort or separate, as ore in a jigger or
+      # sieve" for *jig*.
+      # Note that +filter+ is already an alias
+      select: %i[jig only solely],
+      select!: %i[jig! only! solely!],
+      reject: %i[albeit but],
+      reject!: %i[albeit! but!],
+      keep_if: %i[hold on under mixupon],
+      # Note that +String#split+ is also aliased to +cut+. Slide and split are
+      # both synonym with divide in English, but only +String#split+ is defined
+      # as alias of +#/+ in ruby.
+      slice!: %i[carve cleave cut divide sever slit],
+      # Wiktionary gives "To chop away at; to whittle down; to mow down" for
+      # *hew*.
+      uniq: %i[axe compounds hew singularize sleek slick smooth streamline
+               lowmix unite unique],
+      uniq!: %i[axe! compounds! hew! singularize! sleek! slick! smooth!
+                streamline! lowmix! unite! unique!],
+      clear: %i[gut],
+
+      # Wiktionary gives "To make a mess of something" for *bog*.
+      shuffle: %i[bog remix],
+
+      # Wiktionary give "To join or fit together; to unite." for pan
+      # Note that previous aliases which supplement elements all avoided to use
+      # words which encompasses the term *join[t]*
+      join: %i[assemble agglutinate coalesce conflate clip juxtapose meld pan
+               mixdown weld]
+    }.freeze
   end
 
   module BasicObject
@@ -181,14 +294,22 @@ module Englishest
       instance_exec: %i[aptly pat plumb suitably],
       method_missing: %i[gap lake vacant on_vacancy way_off],
       singleton_method_added: %i[hail hey hi on_attachment],
-      singleton_method_removed: %i[ban ciao leave_taking on_detachment],
-      singleton_method_undefined: %i[farewell nix on_unattachment]
+      singleton_method_removed: %i[bye ciao leave_taking on_detachment],
+      singleton_method_undefined: %i[farewell huh on_unattachment]
     }.freeze
   end
 
   module Dir
     SINGLETON_METHOD_ALIASES = {
+      # Wiktionary gives "To encircle; to surround; to enclose" for *orb*.
       "[]": %i[conform native_global_match orb suit]
+    }.freeze
+  end
+
+  module Enumerable
+    INSTANCE_METHOD_ALIASES = {
+      # Wiktionary gives "(slang, UK) To give someone an injection" for *jab*
+      inject: %i[jab]
     }.freeze
   end
 
@@ -227,12 +348,12 @@ module Englishest
       # resorting on an apocope like *mod*.
       "%": %i[lap],
       "+": %i[add append plus supplement],
-      # Regarding mow, Merriam-Webster provides the following relavant definition:
+      # Regarding *mow*, Merriam-Webster provides the following relavant definition:
       # - to cut down with a scythe or sickle or machine
-      # Regarding lop:
+      # Regarding *lop*:
       # a : to remove superfluous parts from
       # b : to eliminate as unnecessary or undesirable
-      "-": %i[deduct minus lop mow remove substract],
+      "-": %i[deduct minus lop mow remove subtract],
       # Note that *ex* is an alternative pronounciation of the more frequent
       # *times* as pronounciation of the cross multiplication symbol, <tt>×</tt>
       # whose glyph is close to a ex latin letter <tt>x</tt>.
@@ -241,8 +362,8 @@ module Englishest
       # also commonly employed as a mean to denote multiplication.
       #
       # Of course in Ruby, +#times+ is already used to create loops.
-      # This is why a specific overload of this method is required specifically
-      # to make the identifier callable in both cases.
+      # This is why a specific overload of this method is required to make the
+      # identifier callable in both cases.
       #
       "*": %i[cross dot ex multiply],
       # Regarding cut, Merriam-Webster provides the following relavant definition:
@@ -318,7 +439,12 @@ module Englishest
       # - to surround in a restrictive manner
       # And for *saw*
       # - to produce or form by cutting with a saw
-      "%": %i[form format fix form hem shape rim saw]
+      "%": %i[form format fix form hem shape rim saw],
+      # Merriam-Webster gives the following relevant definition for *din*
+      # - to impress by insistent repetition
+      # Wiktionary gives "To make a copy from an original or master audio tape"
+      # for *dub*.
+      "*": %i[autoecholalia din dub echo replicate repeat]
     }.freeze
   end
 
@@ -344,6 +470,8 @@ module Englishest
 
   module Kernel
     INSTANCE_METHOD_ALIASES = {
+      # Merriam-Webster gives "to provide or offer something equal to : equal"
+      # for *tie*.
       eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
       "!~": %i[absent? devoid? off? miss?],
       "===": %i[encompass? fit? gird?],
@@ -356,8 +484,8 @@ module Englishest
   module Warning
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {
-      "[]=": %i[in],
-      "[]": %i[of]
+      "[]=": %i[lay in],
+      "[]": %i[at of]
     }.freeze
   end
 
