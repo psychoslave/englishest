@@ -209,19 +209,25 @@ module Englishest
       # Supplement changingly +self+ at forefront with +objects+.
       # Return +self+
       # Note that +prepend+ is already an alias
-      unshift: %i[spill tip foremix],
+      # Wiktionary gives "To hang (a picture on exhibition) near the top of a
+      # wall […]" for *sky*.
+      # Wiktionary gives "To put a bridle upon; to put the bit in the mouth of
+      # (a horse)" for *bit*.
+      unshift: %i[bit spill underlay foremix],
 
       # Supplement changingly +self+ with entries from +other_object+
       # Note that +other_object+ is incorporated as a single element, even if
       # it is another Array.
       # Return +self+
-      # Wikitionary gives "To drain, suck or absorb from (tree, etc.)" for
+      # Wiktionary gives "To drain, suck or absorb from (tree, etc.)" for
       # *sap*. It also gives "To drink heartily; to tipple" for *bib*, but it's
       # considered here better to let it unused in this sense so *bib* can be
       # employed as a short synonym of identifier, refering to it as noun with
       # sense "A rectangular piece of material, carrying a bib number,
       # worn as identification by entrants in a race."
-      "<<": %i[absorb assimilate blend immix incorporate mix sap],
+      # Wiktionary gives " To fasten or attach (something) with a pin" for
+      # *pin*.
+      "<<": %i[absorb assimilate blend immix incorporate mix pin sap],
       # Supplement changingly +self+ with entries from +*other_objects+
       # Return +self+
       # Note that +append+ is already an alias
@@ -229,7 +235,9 @@ module Englishest
       # steel, aluminum) in order to preserve" for *tin*,
       # Wiktionary gives "To put a lid on (something)" for *lid*.
       # Merriam-Webster gives "affix, attach" for *fix*.
-      push: %i[affix admix annex attach fasten hang fix lid suffix tin],
+      # Wiktionary gives "To graft by inserting a bud under the bark of another
+      # tree" for *bud*.
+      push: %i[affix admix annex attach bud fasten hang fix lid pile suffix tin],
       # Supplement changingly +self+ with entries from +*other_arrays*
       # Return +self+
       # Wiktionary gives "to enclose by sewing" for *sew*.
@@ -275,7 +283,9 @@ module Englishest
       uniq!: %i[axe! basics! compounds! constituents! elements! hew! onesomes!
                 singularize! sleek! slick! smooth! streamline! lonelify! lowmix!
                 unite! unique!],
-      clear: %i[gut],
+      # Wiktionary gives "To remove or destroy the most important parts of" for
+      # *gut*.
+      clear: %i[erase gut],
 
       # Wiktionary gives "To make a mess of something" for *bog*.
       shuffle: %i[bog remix],
@@ -284,7 +294,19 @@ module Englishest
       # Note that previous aliases which supplement elements all avoided to use
       # words which encompasses the term *join[t]*
       join: %i[assemble agglutinate coalesce conflate clip juxtapose meld pan
-               mixdown weld]
+               mixdown weld],
+      max: %i[maximum top],
+      # Wiktionary gives "The bottom of a body of water, such as an ocean, sea,
+      # lake, or river" for *bed".
+      # Wiktionary gives "The bottom part of something" for *pit*.
+      min: %i[bed pit minimun],
+      # Wiktionary gives "A projecting extremity; a point or sharp projection"
+      # for *neb*
+      minmax: %i[extrema hem lip rim utmosts verge],
+      # Wiktionary gives "A U-turn" for *uey*, itself defined as "A reversal of
+      # policy; an about-face, a backflip".
+      reverse: %i[retromix uey]
+
     }.freeze
   end
 
