@@ -185,7 +185,9 @@ module Englishest
       # Disjunction with +other_arrays+
       # Wiktionary gives "To form a thick, tangled mess; to interweave into, or
       # like, a mat; to entangle" for *mat*.
-      union: %i[ally commingle entangle entwine intermingle intertwine
+      # Merriam-Webster gives "a gathering of people for a specific purpose" for
+      # *bee*.
+      union: %i[ally bee commingle entangle entwine intermingle intertwine
                 interweave mat panmix],
       # Merriam-Webster gives the following relevant definition for *din*
       # - to impress by insistent repetition
@@ -265,10 +267,14 @@ module Englishest
       slice!: %i[carve cleave cut divide sever slit],
       # Wiktionary gives "To chop away at; to whittle down; to mow down" for
       # *hew*.
-      uniq: %i[axe compounds hew singularize sleek slick smooth streamline
-               lowmix unite unique],
-      uniq!: %i[axe! compounds! hew! singularize! sleek! slick! smooth!
-                streamline! lowmix! unite! unique!],
+      # Wiktionary gives "To lay off, terminate or drastically reduce,
+      # especially in a rough or ruthless manner; to cancel" for *axe*.
+      uniq: %i[axe basics compounds constituents elements hew onesomes
+               singularize sleek slick smooth streamline lonelify lowmix unite
+               unique],
+      uniq!: %i[axe! basics! compounds! constituents! elements! hew! onesomes!
+                singularize! sleek! slick! smooth! streamline! lonelify! lowmix!
+                unite! unique!],
       clear: %i[gut],
 
       # Wiktionary gives "To make a mess of something" for *bog*.
