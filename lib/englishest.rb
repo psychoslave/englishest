@@ -48,7 +48,7 @@ module Englishest
       !equal?(topic)
     end
     alias deny? dissent?
-    # Note that +axe?+, +ban?+, +nay?+, +nix?+ and +ort?+ have also been
+    # Note that +axe?+, +ban?+, +nay?+, and +ort?+ have also been
     # considered, but were reserved for other uses or dismissed as too uncommon
     # Cambridge dictionary gives "to stop, prevent, or refuse to accept
     # something" for *nix*.
@@ -279,10 +279,10 @@ module Englishest
       # especially in a rough or ruthless manner; to cancel" for *axe*.
       uniq: %i[axe basics compounds constituents elements hew onesomes
                singularize sleek slick smooth streamline lonelify lowmix unite
-               unique],
+               uniquify],
       uniq!: %i[axe! basics! compounds! constituents! elements! hew! onesomes!
                 singularize! sleek! slick! smooth! streamline! lonelify! lowmix!
-                unite! unique!],
+                unite! uniquify!],
       # Wiktionary gives "To remove or destroy the most important parts of" for
       # *gut*.
       clear: %i[erase gut],
@@ -305,8 +305,8 @@ module Englishest
       minmax: %i[extrema hem lip rim utmosts verge],
       # Wiktionary gives "A U-turn" for *uey*, itself defined as "A reversal of
       # policy; an about-face, a backflip".
-      reverse: %i[retromix uey]
-
+      reverse: %i[retromix uey],
+      reverse!: %i[retromix! uey!]
     }.freeze
   end
 
@@ -332,6 +332,21 @@ module Englishest
       # Wiktionary gives "To encircle; to surround; to enclose" for *orb*.
       "[]": %i[conform native_global_match orb suit]
     }.freeze
+  end
+
+  # @see TrueClass
+  # @see NilClass
+  module FalseClass
+    INSTANCE_METHOD_ALIASES = {
+      # Wiktionary gives "(slang, UK) To give someone an injection" for *jab*
+      "&": %i[also and conjunction eke],
+      "|": %i[or inclusive_disjunction],
+      "^": %i[ban nay exclusive_disjunction]
+    }.freeze
+  end
+
+  module TrueClass
+    INSTANCE_METHOD_ALIASES = FalseClass::INSTANCE_METHOD_ALIASES
   end
 
   module Enumerable
@@ -438,6 +453,7 @@ module Englishest
   # a/1 mathematically.
   class ::Rational; alias times *; end
 
+  # @see NilClass
   module Regexp
     # List of aliases provided for each instance method indexed by its identifier
     INSTANCE_METHOD_ALIASES = {
@@ -456,9 +472,17 @@ module Englishest
     }.freeze
   end
 
+  # @see FalseClass
+  # @see TrueClass
+  # @see Regexp
+  module NilClass
+    INSTANCE_METHOD_ALIASES = FalseClass::INSTANCE_METHOD_ALIASES
+                              .dup.tap { _1.store(:=~, Regexp::INSTANCE_METHOD_ALIASES[:=~]) }.freeze
+  end
+
   module String
     INSTANCE_METHOD_ALIASES = {
-      "=~": %i[hit index_of_first_matching],
+      "=~": Regexp::INSTANCE_METHOD_ALIASES[:=~],
       # Merriam-Webster gives the following relevant definition for *rim*
       # - to serve as a rim for
       # And for *fix*

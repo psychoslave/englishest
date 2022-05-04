@@ -108,6 +108,20 @@ RSpec.describe Englishest do
     expect(Hash.method(:engender)).to eq Hash.method(:[])
   end
 
+  it "provides lexicalized alternatives to logical bivalent operators" do
+    expect(nil.and(false)).to eq false
+    expect(nil.and(nil)).to eq false
+    expect(nil.and(true)).to eq false
+
+    expect(false.or(false)).to eq false
+    expect(false.or(nil)).to eq false
+    expect(false.or(true)).to eq true
+
+    expect(true.nay(false)).to eq true
+    expect(true.nay(nil)).to eq true
+    expect(true.nay(true)).to eq false
+  end
+
   it "provides lexicalized alternatives to basic operators on Array" do
     # +#&+ is basically the set of common elements between both arrays
     expect([].method(:common).original_name).to eq [].method(:&).name
