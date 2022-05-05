@@ -85,6 +85,9 @@ RSpec.describe Englishest do
     expect(1.method(:bitwise_conjonction).original_name).to eq 1.method(:&).name
     expect(1.method(:bitwise_exclusive_disjunction).original_name).to eq 1.method(:^).name
     expect(1.method(:bitwise_inclusive_disjunction).original_name).to eq 1.method(:|).name
+    expect(1.method(:additive_inverse).original_name).to eq 1.method(:-@).name
+    expect(1.method(:left_arithmetic_shift).original_name).to eq 1.method(:<<).name
+    expect(1.method(:right_arithmetic_shift).original_name).to eq 1.method(:>>).name
   end
 
   it "provides lexicalized alternatives to String#%, including trigraphs" do

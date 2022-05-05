@@ -12,7 +12,34 @@ module Englishest
   # Return list of submodules whose name matches a class or module that is
   # affected by the gem
   def self.covered_types
-    Englishest.constants.grep_v(/VERSION|Error/)
+    Englishest.constants.grep_v(/VERSION|Error|Prefixal/)
+  end
+
+  # Group material related to handling prefixed operators
+  module Prefixal
+    def unary_minus(object)
+      -object
+    end
+    # Wiktionary gives "To bring (something) into opposition with something
+    # else" for *pit*.
+    alias pit unary_minus
+
+    ##
+    #
+    # $LAST_READ_LINE is locally binded, to define a synonymous method of the
+    # unary prefixal matching operator which implicitely use it, the value it
+    # holds in the calling context must be retrieved by some means. Here the
+    # retained implementation is to stash the value in a global variable each
+    # time its value change.
+    trace_var(:$LAST_READ_LINE, proc { |nub|
+      $LAST_PUT_LINE = nub
+    })
+
+    def spot(pattern)
+      $LAST_PUT_LINE =~ pattern
+    end
+    alias win spot
+    alias reach spot
   end
 
   # Object is the default root of all Ruby objects.
@@ -21,6 +48,8 @@ module Englishest
   # Only two instance methods related to +equal?+ are added here, as well as
   # a global method to replace the +~+ unary prefix matching operator.
   class ::Object
+    include Englishest::Prefixal
+
     # Alternative to the double bang prefix notation returning the result of
     # transtyping anything to either +true+ or +false+.
     def positive?
@@ -53,23 +82,6 @@ module Englishest
     # Cambridge dictionary gives "to stop, prevent, or refuse to accept
     # something" for *nix*.
     alias nix? dissent?
-
-    ##
-    #
-    # $LAST_READ_LINE is locally binded, to define a synonymous method of the
-    # unary prefixal matching operator which implicitely use it, the value it
-    # holds in the calling context must be retrieved by some means. Here the
-    # retained implementation is to stash the value in a global variable each
-    # time its value change.
-    trace_var(:$LAST_READ_LINE, proc { |nub|
-      $LAST_PUT_LINE = nub
-    })
-
-    def spot(pattern)
-      $LAST_PUT_LINE =~ pattern
-    end
-    alias win spot
-    alias reach spot
   end
 
   # ENV is a hash-like accessor for environment variables.
@@ -428,6 +440,8 @@ module Englishest
   module Float; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
 
   module Integer
+    # Recuperate entries from Numeric in a anfrozen copy and add new items
+    # before frozing the result again.
     INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES.dup.tap do |kin|
       # Wiktionary gives "To assemble" as well as "To bring together; join
       # (in marriage, friendship, love, etc.)" for *sam*.
@@ -444,15 +458,26 @@ module Englishest
       # "to shift the balance of power or influence" for *tip*.
       # Still for *tip*, Wiktionary gives "to become knocked over, fall down
       # or overturn".
-      # Wiktionary gives "To rival (something), etc." for *vie*.
       # Merriam-Webster gives "alternate" for *yaw*.
       # Wiktionary gives "To move with a sharp turn or reversal" as well as
       # "twist in a storyline" for *zag*.
       kin.store(:~, %i[antipole antipode bitwise_complement bitwise_negation
                        bitwise_one_s_complement complement not
-                       one_s_complement tip vie yaw zag])
+                       one_s_complement tip yaw zag])
       # Wiktionary gives "To join or fit together; to unite" for *pan*.
       kin.store(:&, %i[bitwise_conjonction join pan])
+
+      #
+      # Wiktionary gives "To rival (something), etc." for *vie*.
+      kin.store(:-@, %i[additive_inverse negation opposite sign_change vie])
+
+      # Wiktionary gives "To turn towards the driver, typically to the left" for
+      # *haw*.
+      # Merriam-Webster gives "to turn to the near or left side" for *haw*.
+      kin.store(:<<, %i[haw left_arithmetic_shift])
+
+      # Merriam-Webster gives "to turn to the right side" for *gee*.
+      kin.store(:>>, %i[gee right_arithmetic_shift])
     end.freeze
   end
 
