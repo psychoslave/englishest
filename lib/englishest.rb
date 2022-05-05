@@ -188,7 +188,7 @@ module Englishest
       # Merriam-Webster gives "a gathering of people for a specific purpose" for
       # *bee*.
       union: %i[ally bee commingle entangle entwine intermingle intertwine
-                interweave mat panmix],
+                interweave mat commix],
       # Merriam-Webster gives the following relevant definition for *din*
       # - to impress by insistent repetition
       # Wiktionary gives "To make a copy from an original or master audio tape"
@@ -238,11 +238,11 @@ module Englishest
       # Wiktionary gives "To graft by inserting a bud under the bark of another
       # tree" for *bud*.
       push: %i[affix admix annex attach bud fasten hang fix lid pile suffix tin],
-      # Supplement changingly +self+ with entries from +*other_arrays*
+      # Supplement changingly +self+ with entries from +*other_arrays+
       # Return +self+
       # Wiktionary gives "to enclose by sewing" for *sew*.
       concat: %i[associate chain concatenate couple infuse
-                 commix integrate intermingle sew],
+                 epimix integrate intermingle sew],
 
       # Withdraw preservingly elements from +self+ which are not present in
       # +other_array+
@@ -263,8 +263,10 @@ module Englishest
       delete_if: %i[beyond demixupon dismiss out past rid],
       # Wiktionary gives "(mining) To sort or separate, as ore in a jigger or
       # sieve" for *jig*.
+      # Wiktionary give "(mining) To wash or cleanse, as a small portion of ore,
+      # on a shovel" for *van*.
       # Note that +filter+ is already an alias
-      select: %i[jig only solely],
+      select: %i[jig only solely van],
       select!: %i[jig! only! solely!],
       reject: %i[albeit but],
       reject!: %i[albeit! but!],
@@ -317,7 +319,7 @@ module Englishest
       "!=": %i[inæqual? inequal? unequal? unlike? wry?],
       "!": %i[bad? con? negative? ko?],
       __id__: %i[badge bib emblem identifier insigne insignia],
-      __send__: %i[address fax hop pst transmit],
+      __send__: %i[address fax pst transmit],
       instance_eval: %i[contextually so tho wis],
       instance_exec: %i[aptly pat plumb suitably],
       method_missing: %i[gap lake vacant on_vacancy way_off],
@@ -375,7 +377,7 @@ module Englishest
       # - to move by a quick springy leap or in a series of leaps
       # and the following for *pas*
       # - a dance step or combination of steps
-      "%": %i[bar hop pas]
+      "%": %i[hop pas]
     }.freeze
   end
 
@@ -412,30 +414,56 @@ module Englishest
       # Regarding cut, Merriam-Webster provides the following relavant definition:
       # - to divide into shares : split
       "/": %i[cut divide split],
-      # Tip:
-      #  1 : to register weight
-      #  2 : to shift the balance of power or influence
       # Vis:
       #     Force; energy; might; power.
       # Wax:
       # a : to increase in size, numbers, strength, prosperity, or intensity
       # b : to grow in volume or duration
       # c : to grow toward full development
-      "**": %i[exponent power raised_to_the_power to_the tip vis wax weighted]
+      "**": %i[exponent power raised_to_the_power to_the vis wax weighted]
     }.freeze
   end
 
   module Complex; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
   module Float; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
-  module Integer; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+
+  module Integer
+    INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES.dup.tap do |kin|
+      # Wiktionary gives "To assemble" as well as "To bring together; join
+      # (in marriage, friendship, love, etc.)" for *sam*.
+      # Wiktionary gives "To weld together through a series of connecting or
+      # overlapping spot welds" for "sew".
+      kin.store(:|, %i[bitwise_inclusive_disjunction sam sew])
+      # Although *bar* is somehow in dissonance with the association to
+      # *caret* rather than with *vertical bar*, it is more relevant regarding
+      # its exclusionary semantic. Note that this also voluntarily avoid a
+      # lexical conflict with *ban* used as alias for the logical exclusive
+      # disjunction operator.
+      kin.store(:^, %i[bar bitwise_exclusive_disjunction])
+      # Merriam-Webster gives "to become tipped : topple" as well as
+      # "to shift the balance of power or influence" for *tip*.
+      # Still for *tip*, Wiktionary gives "to become knocked over, fall down
+      # or overturn".
+      # Wiktionary gives "To rival (something), etc." for *vie*.
+      # Merriam-Webster gives "alternate" for *yaw*.
+      # Wiktionary gives "To move with a sharp turn or reversal" as well as
+      # "twist in a storyline" for *zag*.
+      kin.store(:~, %i[antipole antipode bitwise_complement bitwise_negation
+                       bitwise_one_s_complement complement not
+                       one_s_complement tip vie yaw zag])
+      # Wiktionary gives "To join or fit together; to unite" for *pan*.
+      kin.store(:&, %i[bitwise_conjonction join pan])
+    end.freeze
+  end
+
   module Rational; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
 
   # Holds Integer values.
   class ::Integer
     alias times_loop times
 
-    # Synonym of +#*+ if a single argument is given, loop other n-times over the
-    # passed block otherwise.
+    # If a single argument is given, performs multiplication between +self+ and
+    # this argument, otherwise loop +self+-times over the passed block otherwise.
     def times(*fad, &block)
       return (self * fad.first) if fad.size == 1
 
@@ -476,8 +504,9 @@ module Englishest
   # @see TrueClass
   # @see Regexp
   module NilClass
-    INSTANCE_METHOD_ALIASES = FalseClass::INSTANCE_METHOD_ALIASES
-                              .dup.tap { _1.store(:=~, Regexp::INSTANCE_METHOD_ALIASES[:=~]) }.freeze
+    INSTANCE_METHOD_ALIASES = FalseClass::INSTANCE_METHOD_ALIASES.dup.tap do |kin|
+      kin.store(:=~, Regexp::INSTANCE_METHOD_ALIASES[:=~])
+    end.freeze
   end
 
   module String

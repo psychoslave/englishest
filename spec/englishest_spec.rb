@@ -13,15 +13,21 @@ RSpec.describe Englishest do
       operators.each do |operator, monikers|
         next if %i[~ ! `].include? operator
 
-        monikers.each do
+        monikers.each do |moniker|
           # Integer does have an alias for =~, through Object, but it lakes those
           # specific to regular expressions, so we skip related test
-          next if operator == :=~ && _1 == :index_of_first_matching
+          next if operator == :=~ && moniker == :index_of_first_matching
 
           # In all other cases, it is expected that aliases have the same effect
           # than the integer diadic operator, i.e. +1 == 1+ and +1.apt? 1+ are
           # evaluated to the same value.
-          expect(1.send(operator, 1)).to eq(1.send(_1, 1))
+          begin
+            expect(1.send(operator, 1)).to eq(1.send(moniker, 1))
+          rescue TypeError
+            # Uncomment to debug
+            # byebug
+            raise TypeError
+          end
         end
 
         # Compare evaluation of string operator against identic string with
@@ -74,6 +80,12 @@ RSpec.describe Englishest do
     expect(5.5r.vis(2)).to eq 121/4r
     expect(5i.wax(3)).to eq(-125i)
   end
+  it "provides lexicalized alternatives to Integer specific operators" do
+    expect(1.method(:bitwise_complement).original_name).to eq 1.method(:~).name
+    expect(1.method(:bitwise_conjonction).original_name).to eq 1.method(:&).name
+    expect(1.method(:bitwise_exclusive_disjunction).original_name).to eq 1.method(:^).name
+    expect(1.method(:bitwise_inclusive_disjunction).original_name).to eq 1.method(:|).name
+  end
 
   it "provides lexicalized alternatives to String#%, including trigraphs" do
     expect("".method(:fix).original_name).to eq "".method(:%).name
@@ -86,7 +98,6 @@ RSpec.describe Englishest do
   end
 
   it "provides lexicalized trigraph alternatives to Range#step Range#%" do
-    expect((0..1).method(:bar).original_name).to eq (0..1).method(:%).name
     expect((0..1).method(:hop).original_name).to eq (0..1).method(:%).name
     expect((0..1).method(:pas).original_name).to eq (0..1).method(:%).name
   end
@@ -198,7 +209,6 @@ RSpec.describe Englishest do
 
     expect(method(:__send__)).to eq method(:address)
     expect(method(:__send__)).to eq method(:fax)
-    expect(method(:__send__)).to eq method(:hop)
     expect(method(:__send__)).to eq method(:pst)
     expect(method(:__send__)).to eq method(:transmit)
   end
