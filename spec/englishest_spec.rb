@@ -321,6 +321,11 @@ RSpec.describe Englishest do
     expect(method(:negative?)).to eq method(:ko?)
   end
 
+  it "enables to call the prefixed unary minus operator with lexicalized aliases" do
+    expect(unary_minus(1)).to eq(-1)
+    expect(pit(1)).to eq(-1)
+  end
+
   it "enables to call the unary prefix matching operator with usual verbs" do
     $_ = <<~LARRY_WALL
       There's really no way to fix this and still keep Perl pathologically
