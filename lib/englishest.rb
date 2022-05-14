@@ -210,7 +210,7 @@ module Englishest
               selfexalt selfinsert selfpush selfreplicate],
       # Supplement preservingly +self+ with entries from +other_array+
       # Return the still unasigned result
-      "+": %i[add bemix fuse plus],
+      "+": %i[add bemix couple fuse plus],
 
       # Supplement changingly +self+ at +index+ with +objects+ .
       # Return +self+
@@ -225,20 +225,21 @@ module Englishest
       # wall […]" for *sky*.
       # Wiktionary gives "To put a bridle upon; to put the bit in the mouth of
       # (a horse)" for *bit*.
-      unshift: %i[bit spill underlay foremix],
+      unshift: %i[bit spill prepose underlay foremix],
 
       # Supplement changingly +self+ with entries from +other_object+
       # Note that +other_object+ is incorporated as a single element, even if
       # it is another Array.
       # Return +self+
+      #
       # Wiktionary gives "To drain, suck or absorb from (tree, etc.)" for
       # *sap*. It also gives "To drink heartily; to tipple" for *bib*, but it's
       # considered here better to let it unused in this sense so *bib* can be
       # employed as a short synonym of identifier, refering to it as noun with
       # sense "A rectangular piece of material, carrying a bib number,
       # worn as identification by entrants in a race."
-      # Wiktionary gives " To fasten or attach (something) with a pin" for
-      # *pin*.
+      #
+      # Wiktionary gives "To fasten or attach (something) with a pin" for *pin*.
       "<<": %i[absorb assimilate blend immix incorporate mix pin sap],
       # Supplement changingly +self+ with entries from +*other_objects+
       # Return +self+
@@ -246,14 +247,14 @@ module Englishest
       # Wiktionary gives "To place into a metal can (ie. a tin; be it tin,
       # steel, aluminum) in order to preserve" for *tin*,
       # Wiktionary gives "To put a lid on (something)" for *lid*.
-      # Merriam-Webster gives "affix, attach" for *fix*.
       # Wiktionary gives "To graft by inserting a bud under the bark of another
       # tree" for *bud*.
-      push: %i[affix admix annex attach bud fasten hang fix lid pile suffix tin],
+      push: %i[affix admix annex attach bud fasten hang lid pile postpose suffix
+               tin],
       # Supplement changingly +self+ with entries from +*other_arrays+
       # Return +self+
       # Wiktionary gives "to enclose by sewing" for *sew*.
-      concat: %i[associate chain concatenate couple infuse
+      concat: %i[associate chain concatenate infuse
                  epimix integrate intermingle sew],
 
       # Withdraw preservingly elements from +self+ which are not present in
@@ -268,7 +269,8 @@ module Englishest
       map: %i[transmix],
       map!: %i[transmix!],
       shift: %i[ebb mixoff],
-      compact: %i[cram lop prune psycnomix],
+      # Merriam-Webster gives "to make compact (as by pounding)" for *ram*.
+      compact: %i[cram lop prune psycnomix ram],
       compact!: %i[cram! lop! prune! psycnomix!],
       delete: %i[ban exclude demix],
       delete_at: %i[off demixin],
@@ -279,7 +281,7 @@ module Englishest
       # on a shovel" for *van*.
       # Note that +filter+ is already an alias
       select: %i[jig only solely van],
-      select!: %i[jig! only! solely!],
+      select!: %i[jig! only! solely! van!],
       reject: %i[albeit but],
       reject!: %i[albeit! but!],
       keep_if: %i[hold on under mixupon],
@@ -299,34 +301,44 @@ module Englishest
                 unite! uniquify!],
       # Wiktionary gives "To remove or destroy the most important parts of" for
       # *gut*.
-      clear: %i[erase gut],
+      # Wiktionary gives "To empty or pour" for *ent*.
+      clear: %i[ent erase gut],
 
       # Wiktionary gives "To make a mess of something" for *bog*.
       shuffle: %i[bog remix],
 
-      # Wiktionary give "To join or fit together; to unite." for pan
-      # Note that previous aliases which supplement elements all avoided to use
-      # words which encompasses the term *join[t]*
-      join: %i[assemble agglutinate coalesce conflate clip juxtapose meld pan
-               mixdown weld],
+      # Wiktionary gives "To join or fit together; to unite." for pan
+      # Note that previous aliases which supplement elements all voluntarily
+      # avoided to use words which encompasses the term *join[t]*, including
+      # underjoin, subjoin, interjoin, anitjoin, autojoin, abjoin, disjoin,
+      # injoint, and the like.
+      #
+      # Merriam-Webster gives "to extend out, up, or forward" for *jut*
+      join: %i[assemble agglutinate coalesce conflate clip jut juxtapose meld
+               pan mixdown weld],
       max: %i[maximum top],
       # Wiktionary gives "The bottom of a body of water, such as an ocean, sea,
       # lake, or river" for *bed".
       # Wiktionary gives "The bottom part of something" for *pit*.
       min: %i[bed pit minimun],
-      # Wiktionary gives "A projecting extremity; a point or sharp projection"
-      # for *neb*
-      minmax: %i[extrema hem lip rim utmosts verge],
+      # Merriam-Webster gives "to serve as a rim for" for *rim*.
+      # Merriam-Webster gives "to surround in a restrictive manner" for *hem*.
+      minmax: %i[boundaries brink extrema hem rim utmosts verge],
       # Wiktionary gives "A U-turn" for *uey*, itself defined as "A reversal of
       # policy; an about-face, a backflip".
       reverse: %i[retromix uey],
-      reverse!: %i[retromix! uey!]
+      reverse!: %i[retromix! uey!],
+      # Wiktionary gives "To get something stuck in a confined space" for *jam*.
+      pack: %i[jam]
     }.freeze
   end
 
   module BasicObject
     INSTANCE_METHOD_ALIASES = {
-      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? worth?],
+      # Wiktionary gives "Equal value; equality of nominal and actual value; the
+      # value expressed on the face or in the words of a certificate of value,
+      # as a bond or other commercial paper" for *par*.
+      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
       equal?: %i[equireferent? peg? univocal?],
       "!=": %i[inæqual? inequal? unequal? unlike? wry?],
       "!": %i[bad? con? negative? ko?],
@@ -366,7 +378,10 @@ module Englishest
   module Enumerable
     INSTANCE_METHOD_ALIASES = {
       # Wiktionary gives "(slang, UK) To give someone an injection" for *jab*
-      inject: %i[jab]
+      inject: %i[jab],
+      # Note that +collect_concat+ is already an alias
+      # Wiktionary gives "To gather into a lump" for *gob*.
+      flat_map: %i[gob]
     }.freeze
   end
 
@@ -478,7 +493,26 @@ module Englishest
 
       # Merriam-Webster gives "to turn to the right side" for *gee*.
       kin.store(:>>, %i[gee right_arithmetic_shift])
+
+      # Returns a string containing the character associated with self integer
+      # value in a given +encoding+ or in the interpreter default one.
+      #
+      # Merriam-Webster gives "outward appearance of a thing" for *air*.
+      # Merriam-Webster gives "recognize" for *ken*.
+      # Wiktionary gives "To know, perceive or understand" and "To discover by
+      # sight; to catch sight of; to descry" for *ken*.
+      #
+      # @see String#chr
+      kin.store(:chr, %i[air character ken recognize reconnoitre])
     end.freeze
+  end
+
+  module Mutex
+    # List of aliases provided for each instance method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      # Wiktionary gives "To shut away, confine, lock up" for *mew*.
+      lock: %i[mew]
+    }.freeze
   end
 
   module Rational; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
@@ -536,21 +570,158 @@ module Englishest
 
   module String
     INSTANCE_METHOD_ALIASES = {
+
+      # Returns the Integer index of the first substring that matches the given
+      # regexp, or nil if no match found:
       "=~": Regexp::INSTANCE_METHOD_ALIASES[:=~],
-      # Merriam-Webster gives the following relevant definition for *rim*
-      # - to serve as a rim for
-      # And for *fix*
-      # - to give a permanent or final form to
-      # And for *hem*
-      # - to surround in a restrictive manner
-      # And for *saw*
-      # - to produce or form by cutting with a saw
-      "%": %i[form format fix form hem shape rim saw],
+
+      # Returns the result of formatting  into the format specification self
+      # (see Kernel#sprintf for formatting details):
+      #
+      # Merriam-Webster gives "to produce or form by cutting with a saw" for
+      # *saw*.
+      #
+      # Wiktionary gives "The mold in which a block of metal is cast" for *pig*.
+      "%": %i[form format form mold pig saw shape],
+
       # Merriam-Webster gives the following relevant definition for *din*
       # - to impress by insistent repetition
       # Wiktionary gives "To make a copy from an original or master audio tape"
       # for *dub*.
-      "*": %i[autoecholalia din dub echo replicate repeat]
+      "*": %i[autoecholalia din dub echo replicate repeat],
+      # Note that +#/+ is actually an alias of +#split+.
+      "/": %i[cut divide disjoin],
+      "+": %i[add append attach couple juxtapose plus suffix],
+      "<<": %i[admix mix pin],
+      concat: Array::INSTANCE_METHOD_ALIASES[:concat],
+      prepend: Array::INSTANCE_METHOD_ALIASES[:unshift],
+      # Merriam-Webster gives "to give a permanent or final form to" for *fix*
+      "-@": %i[fix immutable inalterable unalterable],
+      # Return +self+ unless it's frozen, thereof the unfrozen +self.dup+ is
+      # returned
+      #
+      # Wiktionary gives "To bend, to flex; to be bent by something, to give way
+      # or yield (to a force, etc.)" for *ply*.
+      "+@": %i[alterable changeable fickle mutable ply versatile],
+
+      "[]": Array::INSTANCE_METHOD_ALIASES[:[]],
+      "[]=": Array::INSTANCE_METHOD_ALIASES[:[]=],
+      # Returns a copied string whose encoding is ASCII-8BIT.
+      # +#b+ stands for binary, see https://bugs.ruby-lang.org/issues/10924
+      # Indeed Encoding::BINARY is an alias for Encoding::ASCII-8BIT
+      b: %i[ASCII ascii binary retrograde low vulgar],
+      # Wiktionary gives "To be, or be like, a twin to (someone else); to match
+      # in some way" for *twin*.
+      #
+      # Wiktionary gives "To bring into relation; establish a relationship
+      # between; make friendly; reconcile" for *sib*.
+      casecmp: %i[associate equate look_alike homeotetrachotomize link liken
+                  relate sib twin],
+      casecmp?: %i[associate? equate? look_alike? homeotetrachotomize? link?
+                   liken? relate? sib? twin?],
+      # Returns a string with the first character of a non-empty string or the
+      # empty string
+      #
+      # see Integer#chr
+      chr: Integer::INSTANCE_METHOD_ALIASES[:chr] + %i[glance initial],
+      # Wiktionary gives "To deprive of distinct vision; to hinder from seeing
+      # clearly, either by dazzling or clouding the eyes; to darken the senses
+      # or understanding of" for *dim*.
+      crypt: %i[curtain dim encrypt],
+      # Wiktionary gives "To sip; to take a small amount of food or drink into
+      # the mouth, especially with a spoon" for *sup*.
+      each_char: %i[each_character sup],
+      # Wiktionary gives "To take the place of" for *sit*.
+      replace: %i[sit],
+      # Merriam-Webster gives "within" for *ben*.
+      # Wiktionary gives "Inner, interior" and "Inside" for *ben*.
+      # Wiktionary gives "To weigh; to yield in tods" for *tod*".
+      getbyte: %i[ben octet tod],
+      # Wiktionary gives "To graft or implant (something other than a plant); to
+      # fix or set (something) in" for *imp*.
+      #
+      # Wiktionary gives "To graft by inserting a bud under the bark of another
+      # tree" and "To put forth as a bud" for *bud*.
+      sub: %i[alter bud imp infuse substitute suffuse swop],
+      sub!: %i[alter! imp! infuse! substitute! suffuse! swop!],
+      # Webster-Merriam gives "to wet thoroughly with liquid" for *sop*
+      gsub: %i[diffuse imbue transfuse pansubstitute pervade riddle sop
+               globally_substitute steep],
+      gsub!: %i[diffuse! imbue! transfuse! pansubstitute! pervade! riddle! sop!
+                globally_substitute! steep!],
+      # XVI is the Roman numeral representing the number sixteen
+      # Wiktionary gives "A unit of mass equal to 16 avoirdupois ounces"
+      # "To confine in, or as in, a pound; to impound"
+      hex: %i[hexadecimalize pud sexadecimalize XVI xvi pound],
+      # Wiktionary gives "To stuff" for *pad*.
+      ljust: %i[pad left_justify],
+      # Wiktionary gives "To create a hollow indentation" for *dap*.
+      # Incidently its also the reversed letter of *pad* used as alias for the
+      # inverse operation.
+      rjust: %i[dap right_justify],
+
+      # Wiktionary gives "To rise or flow up to or over the edge of something"
+      # for *lip*.
+      # @see lap lop
+      lstrip: %i[lip],
+      # Wiktionary gives "To cut off as the top or extreme part of anything,
+      # especially to prune a small limb off a shrub or tree, or sometimes to
+      # behead someone" for *lop*.
+      # @see lap lip
+      rstrip: %i[lop],
+      # Wiktionary gives "To polish, e.g., a surface, until smooth" for *lap*
+      # @see lip lop
+      strip: %i[lap],
+
+      # Many bees build octogonal hives, so let's say that "to bee" might be
+      # used as a verb meaning "To build an octonary structure".
+      oct: %i[bee octalize],
+
+      # Wiktionary gives "A rectangular piece of material, carrying a bib
+      # number, worn as identification by entrants in a race" for *bib*.
+      ord: %i[bib ordinal_numeral ordinalize],
+
+      # Merriam-Webster gives "an often small and temporary dwelling of simple
+      # construction", for *hut*,  so here taken as a metonymy for the location
+      # where one shelter. It also morpohologically coordinates with *hit* and
+      # *hot* aliasing similar methods elsewhere.
+      #
+      # @see Kernel#=~
+      # @see Regexp#=~
+      # @see Regexp#~
+      # @see String#=~
+      index: %i[hut],
+      # Merriam-Webster gives "one that lags or is last" for *lag*.
+      # Merriam-Webster gives "to gather or seek nuts" for "nut".
+      rindex: %i[latest ultimate lag nut],
+
+      # Wiktionary gives "To cut or dress roughly, as a grindstone." for *jag*.
+      partition: %i[rag],
+      # Merriam-Webster gives "to tear or split apart or open" for *rip*
+      rpartition: %i[retropartition rip],
+
+      # continue
+      # grow
+      # next
+      #
+      # Merriam-Webster gives "to bend upward —used especially of the edge of a
+      # plank near the bow or stern of a ship" for *sny*.
+      succ: %i[successor sny],
+      succ!: %i[successor! sny!],
+      # Wiktionary gives "To blend (wines or spirits) in a vat; figuratively,
+      # to mix or blend elements as if with wines or spirits" for *vat*.
+      # Wiktionary gives "To make incline, deviate, or bend, from an initial
+      # position" for *bow*.
+      tr: %i[bow translate vat],
+      tr!: %i[bow! translate! vat!],
+      # Note that the base name comes from the flagged Unix command `tr -s`.
+      tr_s: %i[translate_squeeze_repeats],
+
+      # Wiktionary gives "To free or liberate from confinement or other physical
+      # restraint, to recover forcibly" for *rid*.
+      unpack: %i[rid],
+      # Wiktionary gives "To take out the entrails of (herrings)" for *gip*.
+      unpack1: %i[gip]
     }.freeze
   end
 
@@ -582,8 +753,22 @@ module Englishest
       "!~": %i[absent? devoid? off? miss?],
       "===": %i[encompass? fit? gird?],
       "=~": %i[hit],
-      "<=>": %i[trichotomise trichotomize spy wye],
-      "`": %i[subshell run]
+      # Wiktionary gives "To distinguish something as being different from
+      # something else; to differentiate" for *spy*.
+      "<=>": %i[quadrichotomise quadrichotomize tetrachotomise tetrachotomize
+                spy],
+      # quadrialate
+      # quadriaxial
+      "`": %i[subshell run],
+      # Wiktionary gives "To be of use, have value." and "To have the strength
+      # for, to be able to" for *dow*.
+      respond_to?: %i[dow?],
+      # Wiktionary gives "To move away; to go off" for mog
+      exit: %i[mog],
+      exit!: %i[mog!],
+      # Wiktionary gives "To extend the hand to; hand or pass something" for
+      # rax.
+      extend: %i[rax]
     }.freeze
   end
 

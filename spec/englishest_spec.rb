@@ -91,13 +91,22 @@ RSpec.describe Englishest do
   end
 
   it "provides lexicalized alternatives to String#%, including trigraphs" do
-    expect("".method(:fix).original_name).to eq "".method(:%).name
+    expect("".method(:pig).original_name).to eq "".method(:%).name
     expect("".method(:format).original_name).to eq "".method(:%).name
     expect("".method(:form).original_name).to eq "".method(:%).name
-    expect("".method(:hem).original_name).to eq "".method(:%).name
-    expect("".method(:rim).original_name).to eq "".method(:%).name
     expect("".method(:saw).original_name).to eq "".method(:%).name
     expect("".method(:shape).original_name).to eq "".method(:%).name
+  end
+
+  it "provides usual English terms to String methods which lakes one" do
+    non_english_terms = %i[b casecmp casecmp? chr crypt each_char
+                           sub sub! gsub gsub! hex ljust rjust lstrip
+                           rstrip strip oct ord rindex rpartition
+                           succ succ! tr tr! tr_s unpack1]
+    full_covering = non_english_terms.all? do |term|
+      Englishest::String::INSTANCE_METHOD_ALIASES.keys.include?(term)
+    end
+    expect(full_covering).to be true
   end
 
   it "provides lexicalized trigraph alternatives to Range#step Range#%" do
@@ -158,7 +167,7 @@ RSpec.describe Englishest do
     # Actually :== is defined in Comparable, and :<=> in Kernel, but this make
     # the local test set more thourough.
     expect([].method(:apt?).original_name).to eq [].method(:==).name
-    expect([].method(:wye).original_name).to eq [].method(:<=>).name
+    expect([].method(:spy).original_name).to eq [].method(:<=>).name
 
     expect([].method(:absorb).original_name).to eq [].method(:<<).name
     expect([].method(:sap).original_name).to eq [].method(:<<).name
