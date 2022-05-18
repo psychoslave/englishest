@@ -388,6 +388,13 @@ module Englishest
     }.freeze
   end
 
+  module Enumerator
+    # List of aliases provided for each class method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      "+": Array::INSTANCE_METHOD_ALIASES[:+]
+    }.freeze
+  end
+
   module Hash
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {
@@ -518,13 +525,18 @@ module Englishest
     }.freeze
   end
 
+  # Module which contains several groups of functionality for handling OS
+  # processes.
   module Process; end
-  module Process::Status
-    # List of aliases provided for each instance method indexed by its identifier
-    INSTANCE_METHOD_ALIASES = {
-      "&": Integer::INSTANCE_METHOD_ALIASES[:&],
-      ">>": Integer::INSTANCE_METHOD_ALIASES[:>>]
-    }.freeze
+
+  module Process
+    module Status
+      # List of aliases provided for each instance method indexed by its identifier
+      INSTANCE_METHOD_ALIASES = {
+        "&": Integer::INSTANCE_METHOD_ALIASES[:&],
+        ">>": Integer::INSTANCE_METHOD_ALIASES[:>>]
+      }.freeze
+    end
   end
 
   module Rational; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end

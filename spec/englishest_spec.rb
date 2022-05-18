@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "English"
+
 RSpec.describe Englishest do
   it "has a version number" do
     expect(Englishest::VERSION).not_to be nil
@@ -99,6 +101,13 @@ RSpec.describe Englishest do
     expect("".method(:shape).original_name).to eq "".method(:%).name
   end
 
+  it "provides lexicalized alternatives to Enumerator#+, including trigraphs" do
+    tow = Enumerator.new { 0 }
+    expect(tow.method(:add).original_name).to eq tow.method(:+).name
+    expect(tow.method(:plus).original_name).to eq tow.method(:+).name
+    expect(tow.method(:fuse).original_name).to eq tow.method(:+).name
+  end
+
   it "provides usual English terms to String methods which lakes one" do
     non_english_terms = %i[b casecmp casecmp? chr crypt each_char
                            sub sub! gsub gsub! hex ljust rjust lstrip
@@ -122,11 +131,10 @@ RSpec.describe Englishest do
 
   it "provides lexicalized alternatives to Process::Status operators" do
     `:` # feel $? with a Process::Status
-    expect($?.method(:pan).original_name).to eq $?.method(:&).name
-    expect($?.method(:apt?).original_name).to eq $?.method(:==).name
-    expect($?.method(:gee).original_name).to eq $?.method(:>>).name
+    expect($CHILD_STATUS.method(:pan).original_name).to eq $CHILD_STATUS.method(:&).name
+    expect($CHILD_STATUS.method(:apt?).original_name).to eq $CHILD_STATUS.method(:==).name
+    expect($CHILD_STATUS.method(:gee).original_name).to eq $CHILD_STATUS.method(:>>).name
   end
-
 
   it "provides lexicalized alternatives to square bracket ENV notations" do
     expect(ENV.method(:jet)).to eq ENV.method(:[])
