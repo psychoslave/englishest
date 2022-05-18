@@ -80,6 +80,7 @@ RSpec.describe Englishest do
     expect(5.5r.vis(2)).to eq 121/4r
     expect(5i.wax(3)).to eq(-125i)
   end
+
   it "provides lexicalized alternatives to Integer specific operators" do
     expect(1.method(:bitwise_complement).original_name).to eq 1.method(:~).name
     expect(1.method(:bitwise_conjonction).original_name).to eq 1.method(:&).name
@@ -118,6 +119,14 @@ RSpec.describe Englishest do
     expect(Warning.method(:at)).to eq Warning.method(:[])
     expect(Warning.method(:in)).to eq Warning.method(:[]=)
   end
+
+  it "provides lexicalized alternatives to Process::Status operators" do
+    `:` # feel $? with a Process::Status
+    expect($?.method(:pan).original_name).to eq $?.method(:&).name
+    expect($?.method(:apt?).original_name).to eq $?.method(:==).name
+    expect($?.method(:gee).original_name).to eq $?.method(:>>).name
+  end
+
 
   it "provides lexicalized alternatives to square bracket ENV notations" do
     expect(ENV.method(:jet)).to eq ENV.method(:[])

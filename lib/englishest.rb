@@ -4,7 +4,8 @@ require_relative "englishest/version"
 require "English"
 
 # Encapsulate all the contrivances to allow a coding style using more English
-# vocabulary, especially enabling to express ideas without ideographi operators.
+# vocabulary, especially enabling to express ideas without ideographic
+# operators.
 module Englishest
   # Class usable to throw errors specifically related to the Englishest module.
   class Error < StandardError; end
@@ -12,7 +13,9 @@ module Englishest
   # Return list of submodules whose name matches a class or module that is
   # affected by the gem
   def self.covered_types
-    Englishest.constants.grep_v(/VERSION|Error|Prefixal/)
+    # All direct constants, except those with a purely internal utility,
+    # supplemented with pertaining nested modules.
+    Englishest.constants.grep_v(/VERSION|Error|Prefixal/) + %i[Process::Status]
   end
 
   # Group material related to handling prefixed operators
@@ -345,7 +348,7 @@ module Englishest
       __id__: %i[badge bib emblem identifier insigne insignia],
       __send__: %i[address fax pst transmit],
       instance_eval: %i[contextually so tho wis],
-      instance_exec: %i[aptly pat plumb suitably],
+      instance_exec: %i[pat plumb suitably],
       method_missing: %i[gap lake vacant on_vacancy way_off],
       singleton_method_added: %i[hail hey hi on_attachment],
       singleton_method_removed: %i[bye ciao leave_taking on_detachment],
@@ -364,7 +367,7 @@ module Englishest
   # @see NilClass
   module FalseClass
     INSTANCE_METHOD_ALIASES = {
-      # Wiktionary gives "(slang, UK) To give someone an injection" for *jab*
+      # Wiktionary gives "Also; in addition to." for *eke*.
       "&": %i[also and conjunction eke],
       "|": %i[or inclusive_disjunction],
       "^": %i[ban nay exclusive_disjunction]
@@ -512,6 +515,15 @@ module Englishest
     INSTANCE_METHOD_ALIASES = {
       # Wiktionary gives "To shut away, confine, lock up" for *mew*.
       lock: %i[mew]
+    }.freeze
+  end
+
+  module Process; end
+  module Process::Status
+    # List of aliases provided for each instance method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      "&": Integer::INSTANCE_METHOD_ALIASES[:&],
+      ">>": Integer::INSTANCE_METHOD_ALIASES[:>>]
     }.freeze
   end
 
@@ -780,8 +792,8 @@ module Englishest
     }.freeze
   end
 
-  # This make the bulk of the work of actually setting aliases, using INSTANCE_METHOD_ALIASES
-  # constant in submodules of Englishest
+  # This make the bulk of the work of actually setting aliases, using
+  # constants in submodules of Englishest
   covered_types.each do |type|
     Object.const_get("::#{type}").class_eval do
       # Define aliases of instance methods if such a list is provided
