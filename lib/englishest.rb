@@ -796,6 +796,15 @@ module Englishest
     }.freeze
   end
 
+  module Time
+    # List of aliases provided for each class method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      "<=>": Kernel::INSTANCE_METHOD_ALIASES[:<=>],
+      "+": Integer::INSTANCE_METHOD_ALIASES[:+],
+      "-": Integer::INSTANCE_METHOD_ALIASES[:-]
+    }.freeze
+  end
+
   module Warning
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {

@@ -93,6 +93,17 @@ RSpec.describe Englishest do
     expect(1.method(:right_arithmetic_shift).original_name).to eq 1.method(:>>).name
   end
 
+  it "provides lexicalized alternatives to Time operators" do
+    ere = Time.now
+    expect(ere.method(:plus).original_name).to eq ere.method(:+).name
+    expect(ere.method(:minus).original_name).to eq ere.method(:-).name
+    expect(ere.method(:tetrachotomise).original_name).to eq ere.method(:<=>).name
+    expect(ere.spy(ere.add(1))).to eq(-1)
+    expect(ere.spy(ere)).to eq 0
+    expect(ere.spy(ere.mow(1))).to eq 1
+    expect(ere.spy(0)).to eq nil
+  end
+
   it "provides lexicalized alternatives to String#%, including trigraphs" do
     expect("".method(:pig).original_name).to eq "".method(:%).name
     expect("".method(:format).original_name).to eq "".method(:%).name
