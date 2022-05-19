@@ -47,6 +47,10 @@ RSpec.describe Englishest do
   end
 
   it "provides regular verb alternatives to usual artihmetic operators" do
+    # prefixal unary plus
+    expect(Numeric.new.method(:identity).original_name).to eq Numeric.new.method(:+@).name
+    # prefixal unary minus
+    expect(Numeric.new.method(:negation).original_name).to eq Numeric.new.method(:-@).name
     # Tests regarding the modulo operator
     # Note that +#modulo+ is actually part of the standard library, so it is not
     # tested here. Also Complexe doesn't come with a +#%+ or %#modulo+ method
@@ -331,6 +335,7 @@ RSpec.describe Englishest do
     expect(true.nix?).to be false
     expect((1 + 1).dissent?(2)).to be false
     expect((1 + 1).dissent?(3)).to be true
+
     # Numeric conventions should still hold
     expect(-1.negative?).to be true
     expect(-1.positive?).to be false

@@ -15,7 +15,8 @@ module Englishest
   def self.covered_types
     # All direct constants, except those with a purely internal utility,
     # supplemented with pertaining nested modules.
-    Englishest.constants.grep_v(/VERSION|Error|Prefixal/) + %i[Process::Status]
+    Englishest.constants.grep_v(/VERSION|Error|Prefixal|Arithmophore/) +
+      %i[Process::Status]
   end
 
   # Group material related to handling prefixed operators
@@ -429,6 +430,18 @@ module Englishest
       # That seems a good fit to provide a shorter term than *modulo* without
       # resorting on an apocope like *mod*.
       "%": %i[lap],
+      # Merriam-Webster gives "to acknowledge something to be true, valid, or
+      # as claimed" for *own*.
+      "+@": %i[substractive_inverse aver avow identity insist own vow],
+
+      # Wiktionary gives "To rival (something), etc." for *vie*.
+      "-@": %i[additive_inverse negation opposite sign_change vie]
+
+    }.freeze
+  end
+
+  module Arithmophore
+    INSTANCE_METHOD_ALIASES = {
       "+": %i[add append plus supplement],
       # Regarding *mow*, Merriam-Webster provides the following relavant definition:
       # - to cut down with a scythe or sickle or machine
@@ -461,13 +474,14 @@ module Englishest
     }.freeze
   end
 
-  module Complex; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
-  module Float; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
+  module Complex; INSTANCE_METHOD_ALIASES = Arithmophore::INSTANCE_METHOD_ALIASES end
+  module Float; INSTANCE_METHOD_ALIASES = Arithmophore::INSTANCE_METHOD_ALIASES end
+  module Rational; INSTANCE_METHOD_ALIASES = Arithmophore::INSTANCE_METHOD_ALIASES end
 
   module Integer
-    # Recuperate entries from Numeric in a anfrozen copy and add new items
+    # Recuperate entries from Arithmophore in a anfrozen copy and add new items
     # before frozing the result again.
-    INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES.dup.tap do |kin|
+    INSTANCE_METHOD_ALIASES = Arithmophore::INSTANCE_METHOD_ALIASES.dup.tap do |kin|
       # Wiktionary gives "To assemble" as well as "To bring together; join
       # (in marriage, friendship, love, etc.)" for *sam*.
       # Wiktionary gives "To weld together through a series of connecting or
@@ -491,10 +505,6 @@ module Englishest
                        one_s_complement tip yaw zag])
       # Wiktionary gives "To join or fit together; to unite" for *pan*.
       kin.store(:&, %i[bitwise_conjonction join pan])
-
-      #
-      # Wiktionary gives "To rival (something), etc." for *vie*.
-      kin.store(:-@, %i[additive_inverse negation opposite sign_change vie])
 
       # Wiktionary gives "To turn towards the driver, typically to the left" for
       # *haw*.
@@ -538,8 +548,6 @@ module Englishest
       }.freeze
     end
   end
-
-  module Rational; INSTANCE_METHOD_ALIASES = Numeric::INSTANCE_METHOD_ALIASES end
 
   # Holds Integer values.
   class ::Integer
