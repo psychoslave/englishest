@@ -357,6 +357,22 @@ module Englishest
     }.freeze
   end
 
+  module Comparable
+    INSTANCE_METHOD_ALIASES = {
+      # Wiktionary gives "Before; sooner than." for *ere*
+      "<": %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
+              lower_than? prior? subcede? subceed? smaller_than? precede?],
+      # Wiktionary gives "Inner, interior" as well as "Inside" for *ben*
+      "<=": %i[at_most? behind? ben? below? beneath? comprised? proconcede?
+               under? underneath? within?],
+      # Wiktionary gives "Equal to or fulfilling some requirement" for *apt*.
+      "==": %i[apt? concede?], # also has other aliases through BasicObject
+      ">=": %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
+      ">": %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede?
+              supersede? superior_to? top? upper_than?]
+    }.freeze
+  end
+
   module Dir
     SINGLETON_METHOD_ALIASES = {
       # Wiktionary gives "To encircle; to surround; to enclose" for *orb*.
@@ -694,16 +710,21 @@ module Englishest
 
       # Wiktionary gives "To rise or flow up to or over the edge of something"
       # for *lip*.
-      # @see lap lop
       lstrip: %i[lip],
       # Wiktionary gives "To cut off as the top or extreme part of anything,
       # especially to prune a small limb off a shrub or tree, or sometimes to
       # behead someone" for *lop*.
-      # @see lap lip
-      rstrip: %i[lop],
+      #
+      # Merriam-Webster gives "to tear or split apart or open" for *rip*
+      rstrip: %i[lop rip],
       # Wiktionary gives "To polish, e.g., a surface, until smooth" for *lap*
-      # @see lip lop
-      strip: %i[lap],
+      #
+      # Wiktionary gives "To perform the action of plunging a dipper, ladle.
+      # etc. into a liquid or soft substance and removing a part" for *dip*
+      #
+      # Wiktionary gives "To remove by pinching, biting, or cutting with two
+      # meeting edges of anything; to clip" for *nip*.
+      strip: %i[lap dip nip],
 
       # Many bees build octogonal hives, so let's say that "to bee" might be
       # used as a verb meaning "To build an octonary structure".
@@ -727,10 +748,10 @@ module Englishest
       # Merriam-Webster gives "to gather or seek nuts" for "nut".
       rindex: %i[latest ultimate lag nut],
 
-      # Wiktionary gives "To cut or dress roughly, as a grindstone." for *jag*.
-      partition: %i[rag],
-      # Merriam-Webster gives "to tear or split apart or open" for *rip*
-      rpartition: %i[retropartition rip],
+      # Wiktionary gives "To cut unevenly." for *jag*.
+      partition: %i[jag],
+      # Wiktionary gives "To cut or dress roughly, as a grindstone" for *rag*
+      rpartition: %i[retropartition rag],
 
       # continue
       # grow
@@ -761,19 +782,6 @@ module Englishest
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {
       "===": %i[encompass? fit? gird?]
-    }.freeze
-  end
-
-  module Comparable
-    INSTANCE_METHOD_ALIASES = {
-      "<": %i[afore? ahead? antecede? before? ere? inferior_to? less_than?
-              lower_than? prior? subcede? subceed? smaller_than? precede?],
-      "<=": %i[at_most? behind? ben? below? beneath? comprised? proconcede?
-               under? underneath? within?],
-      "==": %i[apt? concede?], # also has other aliases through BasicObject
-      ">=": %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
-      ">": %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede?
-              supersede? superior_to? top? upper_than?]
     }.freeze
   end
 
