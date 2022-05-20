@@ -46,7 +46,7 @@ RSpec.describe Englishest do
     end
   end
 
-  it "provides regular verb alternatives to usual artihmetic operators" do
+  it "provides regular verb alternatives to usual arithmetic operators" do
     # prefixal unary plus
     expect(Numeric.new.method(:identity).original_name).to eq Numeric.new.method(:+@).name
     # prefixal unary minus
@@ -270,6 +270,20 @@ RSpec.describe Englishest do
     rescue NameError
       # No singleton/instance method defined for this class, it's fine.
     end
+  end
+
+  it "enables to express all ordination relational operators through trigraphs" do
+    # Integer
+    expect((1).ere? (2)).to eq 1 < 2
+    expect((1).ben? (1)).to eq 1 <= 1
+    expect((1).ben? (2)).to eq 1 <= 2
+    expect((1).apt? (1)).to eq 1 == 1
+    expect((1).on? (1)).to eq 1 >= 1
+    expect((1).on? (0)).to eq 1 >= 0
+    expect((1).top? (0)).to eq 1 > 0
+
+    # Complexes
+    expect((1i).apt? (1i)).to eq 1i == 1i
   end
 
   it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do

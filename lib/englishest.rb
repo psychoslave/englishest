@@ -860,4 +860,19 @@ module Englishest
       end
     end
   end
+
+  # Remove Comparable methods from Complex, to align with what the standard
+  # library does, and overload +Comparable#==+ with +Complex#==+, to avoid
+  # erroneous results.
+  #
+  # See https://stackoverflow.com/q/72314247/1307778
+  class ::Complex
+    Comparable::INSTANCE_METHOD_ALIASES.each do|operator, monikers|
+      if operator == :==
+        monikers.each { alias_method _1, operator }
+      else
+        monikers.each { undef_method _1 }
+      end
+    end
+  end
 end
