@@ -53,7 +53,7 @@ RSpec.describe Englishest do
     expect(Numeric.new.method(:negation).original_name).to eq Numeric.new.method(:-@).name
     # Tests regarding the modulo operator
     # Note that +#modulo+ is actually part of the standard library, so it is not
-    # tested here. Also Complexe doesn't come with a +#%+ or %#modulo+ method
+    # tested here. Also Complex doesn't come with a +#%+ or %#modulo+ method
     # in the standard librabry.
     expect(Numeric.new.method(:lap).original_name).to eq Numeric.new.method(:%).name
     expect(5.lap(3)).to eq 2
@@ -272,18 +272,63 @@ RSpec.describe Englishest do
     end
   end
 
-  it "enables to express all ordination relational operators through trigraphs" do
+  it "enables to express all relational operators of Numeric descendants through trigraphs" do
     # Integer
-    expect((1).ere? (2)).to eq 1 < 2
-    expect((1).ben? (1)).to eq 1 <= 1
-    expect((1).ben? (2)).to eq 1 <= 2
-    expect((1).apt? (1)).to eq 1 == 1
-    expect((1).on? (1)).to eq 1 >= 1
-    expect((1).on? (0)).to eq 1 >= 0
-    expect((1).top? (0)).to eq 1 > 0
+    # 1 < 2
+    expect((1).ere?(2)).to be true
+    # 1 ≤ 1
+    expect((1).ben?(1)).to be true
+    # 1 ≤ 2
+    expect((1).ben?(2)).to be true
+    # 1 == 1
+    expect((1).apt?(1)).to be true
+    # 1 ≥ 1
+    expect((1).cap?(1)).to be true
+    # 1 ≥ 0
+    expect((1).cap?(0)).to be true
+    # 1 > 0
+    expect((1).sky?(0)).to be true
+
+    # Rational
+    # 1r < 2r
+    expect((1r).ere?(2r)).to be true
+    # 1r ≤ 1r
+    expect((1r).ben?(1r)).to be true
+    # 1r ≤ 2r
+    expect((1r).ben?(2r)).to be true
+    # 1r == 1r
+    expect((1r).apt?(1r)).to be true
+    # 1r ≥ 1r
+    expect((1r).cap?(1r)).to be true
+    # 1r ≥ 0r
+    expect((1r).cap?(0r)).to be true
+    # 1r > 0r
+    expect((1r).sky?(0r)).to be true
+
+    # Float
+    # 1.0 < 2.0
+    expect((1.0).ere?(2.0)).to be true
+    # 1.0 ≤ 1.0
+    expect((1.0).ben?(1.0)).to be true
+    # 1.0 ≤ 2.0
+    expect((1.0).ben?(2.0)).to be true
+    # 1.0 == 1.0
+    expect((1.0).apt?(1.0)).to be true
+    # 1.0 ≥ 1.0
+    expect((1.0).cap?(1.0)).to be true
+    # 1.0 ≥ 0.0
+    expect((1.0).cap?(0.0)).to be true
+    # 1.0 > 0.0
+    expect((1.0).sky?(0.0)).to be true
 
     # Complexes
-    expect((1i).apt? (1i)).to eq 1i == 1i
+    # 1i == 1i
+    expect((1i).apt?(1i)).to be true
+    # Relational operators coming from Comparable are undefined on Complex.
+    expect { (1i).ere?(1i) }.to raise_error NoMethodError
+    expect { (1i).ben?(1i) }.to raise_error NoMethodError
+    expect { (1i).cap?(1i) }.to raise_error NoMethodError
+    expect { (1i).sky?(1i) }.to raise_error NoMethodError
   end
 
   it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do

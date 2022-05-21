@@ -225,8 +225,6 @@ module Englishest
       # Supplement changingly +self+ at forefront with +objects+.
       # Return +self+
       # Note that +prepend+ is already an alias
-      # Wiktionary gives "To hang (a picture on exhibition) near the top of a
-      # wall […]" for *sky*.
       # Wiktionary gives "To put a bridle upon; to put the bit in the mouth of
       # (a horse)" for *bit*.
       unshift: %i[bit spill prepose underlay foremix],
@@ -278,7 +276,7 @@ module Englishest
       compact!: %i[cram! lop! prune! psycnomix!],
       delete: %i[ban exclude demix],
       delete_at: %i[off demixin],
-      delete_if: %i[beyond demixupon dismiss out past rid],
+      delete_if: %i[demixupon dismiss out past rid],
       # Wiktionary gives "(mining) To sort or separate, as ore in a jigger or
       # sieve" for *jig*.
       # Wiktionary give "(mining) To wash or cleanse, as a small portion of ore,
@@ -343,6 +341,7 @@ module Englishest
       # value expressed on the face or in the words of a certificate of value,
       # as a bond or other commercial paper" for *par*.
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
+      # Wiktionary gives "To indicate or ascribe an attribute to" for *peg*.
       equal?: %i[equireferent? peg? univocal?],
       "!=": %i[inæqual? inequal? unequal? unlike? wry?],
       "!": %i[bad? con? negative? ko?],
@@ -367,9 +366,21 @@ module Englishest
                under? underneath? within?],
       # Wiktionary gives "Equal to or fulfilling some requirement" for *apt*.
       "==": %i[apt? concede?], # also has other aliases through BasicObject
-      ">=": %i[above? accede? at_least? comprise? on? onward? prosupercede? upward? upon?],
-      ">": %i[after? beyond? excede? exceed? greater_than? higher_than? over? outdo? outstrip? postcede? supercede?
-              supersede? superior_to? top? upper_than?]
+      # Wiktionary gives "Alternative form of umbe, around, about; after" for
+      # *um*.
+      #
+      # Merriam-Webster gives "an upper limit (as on expenditures) : ceiling"
+      # for *cap*.
+      ">=": %i[above? accede? at_least? cap? comprise? onward?
+               prosupercede? um? umbe? upward? upon?],
+      # Wiktionary gives "Acting as or as if being located at a higher rank" and
+      # "To excel; to rise above others" for *top*.
+      #
+      # Wiktionary gives "To clear (a hurdle, high jump bar, etc.) by a large
+      # margin" for *sky*.
+      ">": %i[after? beyond? excede? exceed? greater_than? higher_than? over?
+              outdo? outstrip? postcede? sky? supercede? supersede? superior_to?
+              top? upper_than?]
     }.freeze
   end
 
@@ -867,7 +878,7 @@ module Englishest
   #
   # See https://stackoverflow.com/q/72314247/1307778
   class ::Complex
-    Comparable::INSTANCE_METHOD_ALIASES.each do|operator, monikers|
+    Comparable::INSTANCE_METHOD_ALIASES.each do |operator, monikers|
       if operator == :==
         monikers.each { alias_method _1, operator }
       else
