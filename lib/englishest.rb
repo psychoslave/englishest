@@ -429,6 +429,32 @@ module Englishest
       # create a new instance encompassing parameters
       "[]": %i[create engender generate gig]
     }.freeze
+    INSTANCE_METHOD_ALIASES = {
+      # Wiktionary gives "A small section of a larger office, compartmentalised
+      # for a specific purpose" and "A subsection of a prison, containing a number of
+      # inmates" for *pod*
+      #
+      # Wiktionary gives "to inhabit; occupy" for *big*.
+      #
+      # Wiktionary gives "To ensconce or hide oneself in (or as in) a den", that
+      # is "a small cavern or hollow place in the side of a hill, or among
+      # rocks" for den.
+      "<": %i[big? den? pod? proper_subset?],
+      # Wiktionary gives "Inner, interior" as well as "Inside" for *ben*
+      "<=": %i[ben? subset?],
+      # Wiktionary gives "To enclose in a pen", that is "An enclosure
+      # (enclosed area)" for *pen*.
+      ">": %i[pen? proper_superset?],
+      # Merriam-Webster gives "to enclose in or as if in a box" for *box*
+      #
+      # Merriam-Webster gives "an upper limit (as on expenditures) : ceiling"
+      # for *cap*.
+      ">=": %i[box? cap? comprise? superset?],
+      # overriding the inherited method pointers
+      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
+      "[]": Array::INSTANCE_METHOD_ALIASES[:[]],
+      "[]=": Array::INSTANCE_METHOD_ALIASES[:[]=]
+    }.freeze
   end
 
   module Range

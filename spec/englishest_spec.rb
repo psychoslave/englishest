@@ -156,11 +156,22 @@ RSpec.describe Englishest do
     expect(ENV.method(:sow)).to eq ENV.method(:[]=)
   end
 
-  it "provides lexicalized alternatives to square bracket Hash notation" do
+  it "provides lexicalized alternatives to Hash operators" do
+    # Square bracket of singleton method
     expect(Hash.method(:create)).to eq Hash.method(:[])
     expect(Hash.method(:gig)).to eq Hash.method(:[])
     expect(Hash.method(:generate)).to eq Hash.method(:[])
     expect(Hash.method(:engender)).to eq Hash.method(:[])
+
+    # Other instance method operators
+    h = { a: 1 }
+    expect(h.method(:den?)).to eq h.method(:<)
+    expect(h.method(:ben?)).to eq h.method(:<=)
+    expect(h.method(:pen?)).to eq h.method(:>)
+    expect(h.method(:cap?)).to eq h.method(:>=)
+    expect(h.method(:apt?)).to eq h.method(:==)
+    # make sure that +apt?+ is bind to +Hash#==+, and not inherited
+    expect(h.apt?({ a: 1 })).to be true
   end
 
   it "provides lexicalized alternatives to logical bivalent operators" do
