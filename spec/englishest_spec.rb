@@ -170,6 +170,8 @@ RSpec.describe Englishest do
     expect(h.method(:pen?)).to eq h.method(:>)
     expect(h.method(:cap?)).to eq h.method(:>=)
     expect(h.method(:apt?)).to eq h.method(:==)
+    expect(h.method(:of)).to eq h.method(:[])
+    expect(h.method(:lay)).to eq h.method(:[]=)
     # make sure that +apt?+ is bind to +Hash#==+, and not inherited
     expect(h.apt?({ a: 1 })).to be true
   end
