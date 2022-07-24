@@ -366,6 +366,19 @@ RSpec.describe Englishest do
     expect { (1i).sky?(1i) }.to raise_error NoMethodError
   end
 
+  it "enables to express Module's ordination relational operators through usual English terms" do
+    # <
+    expect(Object.subclass?(Kernel)).to be true
+    # <=
+    expect(Object.based_on?(Kernel)).to be true
+    # >
+    expect(Kernel.superclass?(Object)).to be true
+    # >=
+    expect(Kernel.superclass?(Object)).to be true
+
+    # Note that #== and #=== are already tested elsewhere
+  end
+
   it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do
     # Stricly lower than
     expect(0.precede?(1)).to be true

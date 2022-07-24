@@ -879,6 +879,16 @@ module Englishest
     }.freeze
   end
 
+  module Module
+    # List of aliases provided for each instance method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      "<": %i[subclass?] + Hash::INSTANCE_METHOD_ALIASES[:<],
+      "<=": %i[based_on? of?] + Hash::INSTANCE_METHOD_ALIASES[:<=],
+      ">": %i[superclass?] + Hash::INSTANCE_METHOD_ALIASES[:<],
+      ">=": %i[ground?] + Hash::INSTANCE_METHOD_ALIASES[:<]
+    }.freeze
+  end
+
   module Time
     # List of aliases provided for each class method indexed by its identifier
     INSTANCE_METHOD_ALIASES = {
