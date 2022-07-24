@@ -379,6 +379,12 @@ RSpec.describe Englishest do
     # Note that #== and #=== are already tested elsewhere
   end
 
+  it "enables to use IO with usual English terms" do
+    expect($stdout.method(:pin).original_name).to eq $stdout.method(:<<).name
+    expect(IO == Duction).to eq true
+    expect(IO == Lug).to eq true
+  end
+
   it "enables to express all ordination relational operators through words using the -cede suffixal morpheme" do
     # Stricly lower than
     expect(0.precede?(1)).to be true

@@ -858,11 +858,9 @@ module Englishest
       # Wiktionary gives "To enclose in a pen", that is "An enclosure
       # (enclosed area)" for *pen*.
       ">": %i[pen? proper_superset?],
-      # Merriam-Webster gives "to enclose in or as if in a box" for *box*
-      #
       # Merriam-Webster gives "an upper limit (as on expenditures) : ceiling"
       # for *cap*.
-      ">=": %i[box? cap? comprise? superset?],
+      ">=": %i[cap? comprise? superset?],
       # overriding the inherited method pointers
       "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
       "[]": Array::INSTANCE_METHOD_ALIASES[:[]],
@@ -886,6 +884,13 @@ module Englishest
       "<=": %i[based_on? of?] + Hash::INSTANCE_METHOD_ALIASES[:<=],
       ">": %i[superclass?] + Hash::INSTANCE_METHOD_ALIASES[:<],
       ">=": %i[ground?] + Hash::INSTANCE_METHOD_ALIASES[:<]
+    }.freeze
+  end
+
+  module IO
+    # List of aliases provided for each class method indexed by its identifier
+    INSTANCE_METHOD_ALIASES = {
+      "<<": Array::INSTANCE_METHOD_ALIASES[:<<]
     }.freeze
   end
 
@@ -953,3 +958,7 @@ module Englishest
     end
   end
 end
+
+# Provide synonyms for some classes
+Duction = IO unless (defined? Duction) == "constant"
+Lug = IO unless (defined? Lug) == "constant"
