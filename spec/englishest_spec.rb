@@ -134,6 +134,28 @@ RSpec.describe Englishest do
     expect(full_covering).to be true
   end
 
+  it "provides usual English terms to Array methods which lakes one" do
+    non_english_terms = %i[assoc bsearch bsearch_index rassoc rindex to_ary eql?]
+    full_covering = non_english_terms.all? do |term|
+      Englishest::Array::INSTANCE_METHOD_ALIASES.keys.include?(term)
+    end
+    expect(full_covering).to be true
+
+    # Ensure that +#eql?+ is not a mere alias from Kernel implementation
+    expect([].tie?([])).to be true
+  end
+
+  it "provides usual English terms to Hash methods which lakes one" do
+    non_english_terms = %i[assoc rassoc eql?]
+    full_covering = non_english_terms.all? do |term|
+      Englishest::Hash::INSTANCE_METHOD_ALIASES.keys.include?(term)
+    end
+    expect(full_covering).to be true
+
+    # Ensure that +#eql?+ is not a mere alias from Kernel implementation
+    expect({}.tie?({})).to be true
+  end
+
   it "provides lexicalized trigraph alternatives to Range#step Range#%" do
     expect((0..1).method(:hop).original_name).to eq (0..1).method(:%).name
     expect((0..1).method(:pas).original_name).to eq (0..1).method(:%).name

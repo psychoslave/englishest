@@ -178,6 +178,33 @@ module Englishest
     alias run subshell
   end
 
+  module Kernel
+    INSTANCE_METHOD_ALIASES = {
+      # Merriam-Webster gives "to provide or offer something equal to : equal"
+      # for *tie*.
+      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
+      "!~": %i[absent? devoid? off? miss?],
+      "===": %i[encompass? fit? gird?],
+      "=~": %i[hit],
+      # Wiktionary gives "To distinguish something as being different from
+      # something else; to differentiate" for *spy*.
+      "<=>": %i[quadrichotomise quadrichotomize tetrachotomise tetrachotomize
+                spy],
+      # quadrialate
+      # quadriaxial
+      "`": %i[subshell run],
+      # Wiktionary gives "To be of use, have value." and "To have the strength
+      # for, to be able to" for *dow*.
+      respond_to?: %i[dow?],
+      # Wiktionary gives "To move away; to go off" for mog
+      exit: %i[mog],
+      exit!: %i[mog!],
+      # Wiktionary gives "To extend the hand to; hand or pass something" for
+      # rax.
+      extend: %i[rax]
+    }.freeze
+  end
+
   module Array
     # List of aliases provided for each class method indexed by its identifier
     SINGLETON_METHOD_ALIASES = {
@@ -197,7 +224,7 @@ module Englishest
       # Disjunction with +other_array+
       # Wiktionary gives "To join or commit to, more or less permanently, as
       # if in marriage" for *wed*.
-      "|": %i[twain disjunction duo conglomerate unit ambimix synthesis wed whole],
+      "|": %i[twain disjunction conglomerate unit ambimix synthesis wed whole],
       # Disjunction with +other_arrays+
       # Wiktionary gives "To form a thick, tangled mess; to interweave into, or
       # like, a mat; to entangle" for *mat*.
@@ -256,7 +283,7 @@ module Englishest
       # Supplement changingly +self+ with entries from +*other_arrays+
       # Return +self+
       # Wiktionary gives "to enclose by sewing" for *sew*.
-      concat: %i[associate chain concatenate infuse
+      concat: %i[chain concatenate infuse
                  epimix integrate intermingle sew],
 
       # Withdraw preservingly elements from +self+ which are not present in
@@ -287,6 +314,16 @@ module Englishest
       reject: %i[albeit but],
       reject!: %i[albeit! but!],
       keep_if: %i[hold on under mixupon],
+
+      # Merriam-Webster gives "see *pair*" for *duo* and "two similar or
+      # associated things" for pair.
+      assoc: %i[associate duo pair],
+      # Wiktionary gives "To be equivalent to in value" for buy
+      #
+      # Wiktionary gives "To look for, seek; to probe; to examine; to try; to
+      # put to the test" for *woo*.
+      rassoc: %i[buy right_associate first_pair_with_value woo],
+
       # Note that +String#split+ is also aliased to +cut+. Slide and split are
       # both synonym with divide in English, but only +String#split+ is defined
       # as alias of +#/+ in ruby.
@@ -331,7 +368,18 @@ module Englishest
       reverse: %i[retromix uey],
       reverse!: %i[retromix! uey!],
       # Wiktionary gives "To get something stuck in a confined space" for *jam*.
-      pack: %i[jam]
+      pack: %i[jam],
+      eql?: Kernel::INSTANCE_METHOD_ALIASES[:eql?],
+      # woo/who
+      # Wiktionary gives "To clumsily dig through something" for *paw*
+      bsearch: %i[binary_search binary_chop excavate half_interval_search
+                  logarithmic_search paw rummage],
+      # Wiktionary gives "blame for something" for *rap*.
+      bsearch_index: %i[binary_search_index binary_chop_index blame disclose
+                        half_interval_search_index logarithmic_search_index rap
+                        sleuth],
+      rindex: %i[latest ultimate lag nut],
+      to_ary: %i[raw]
     }.freeze
   end
 
@@ -420,40 +468,6 @@ module Englishest
     # List of aliases provided for each class method indexed by its identifier
     INSTANCE_METHOD_ALIASES = {
       "+": Array::INSTANCE_METHOD_ALIASES[:+]
-    }.freeze
-  end
-
-  module Hash
-    # List of aliases provided for each class method indexed by its identifier
-    SINGLETON_METHOD_ALIASES = {
-      # create a new instance encompassing parameters
-      "[]": %i[create engender generate gig]
-    }.freeze
-    INSTANCE_METHOD_ALIASES = {
-      # Wiktionary gives "A small section of a larger office, compartmentalised
-      # for a specific purpose" and "A subsection of a prison, containing a number of
-      # inmates" for *pod*
-      #
-      # Wiktionary gives "to inhabit; occupy" for *big*.
-      #
-      # Wiktionary gives "To ensconce or hide oneself in (or as in) a den", that
-      # is "a small cavern or hollow place in the side of a hill, or among
-      # rocks" for den.
-      "<": %i[big? den? pod? proper_subset?],
-      # Wiktionary gives "Inner, interior" as well as "Inside" for *ben*
-      "<=": %i[ben? subset?],
-      # Wiktionary gives "To enclose in a pen", that is "An enclosure
-      # (enclosed area)" for *pen*.
-      ">": %i[pen? proper_superset?],
-      # Merriam-Webster gives "to enclose in or as if in a box" for *box*
-      #
-      # Merriam-Webster gives "an upper limit (as on expenditures) : ceiling"
-      # for *cap*.
-      ">=": %i[box? cap? comprise? superset?],
-      # overriding the inherited method pointers
-      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
-      "[]": Array::INSTANCE_METHOD_ALIASES[:[]],
-      "[]=": Array::INSTANCE_METHOD_ALIASES[:[]=]
     }.freeze
   end
 
@@ -700,9 +714,9 @@ module Englishest
       #
       # Wiktionary gives "To bring into relation; establish a relationship
       # between; make friendly; reconcile" for *sib*.
-      casecmp: %i[associate equate look_alike homeotetrachotomize link liken
+      casecmp: %i[equate look_alike homeotetrachotomize link liken
                   relate sib twin],
-      casecmp?: %i[associate? equate? look_alike? homeotetrachotomize? link?
+      casecmp?: %i[equate? look_alike? homeotetrachotomize? link?
                    liken? relate? sib? twin?],
       # Returns a string with the first character of a non-empty string or the
       # empty string
@@ -822,30 +836,46 @@ module Englishest
     }.freeze
   end
 
-  module Kernel
+  module Hash
+    # List of aliases provided for each class method indexed by its identifier
+    SINGLETON_METHOD_ALIASES = {
+      # create a new instance encompassing parameters
+      "[]": %i[create engender generate gig]
+    }.freeze
     INSTANCE_METHOD_ALIASES = {
-      # Merriam-Webster gives "to provide or offer something equal to : equal"
-      # for *tie*.
-      eql?: %i[akin? equisummable? isoepitomizable? like? tie?],
-      "!~": %i[absent? devoid? off? miss?],
-      "===": %i[encompass? fit? gird?],
-      "=~": %i[hit],
-      # Wiktionary gives "To distinguish something as being different from
-      # something else; to differentiate" for *spy*.
-      "<=>": %i[quadrichotomise quadrichotomize tetrachotomise tetrachotomize
-                spy],
-      # quadrialate
-      # quadriaxial
-      "`": %i[subshell run],
-      # Wiktionary gives "To be of use, have value." and "To have the strength
-      # for, to be able to" for *dow*.
-      respond_to?: %i[dow?],
-      # Wiktionary gives "To move away; to go off" for mog
-      exit: %i[mog],
-      exit!: %i[mog!],
-      # Wiktionary gives "To extend the hand to; hand or pass something" for
-      # rax.
-      extend: %i[rax]
+      # Wiktionary gives "A small section of a larger office, compartmentalised
+      # for a specific purpose" and "A subsection of a prison, containing a number of
+      # inmates" for *pod*
+      #
+      # Wiktionary gives "to inhabit; occupy" for *big*.
+      #
+      # Wiktionary gives "To ensconce or hide oneself in (or as in) a den", that
+      # is "a small cavern or hollow place in the side of a hill, or among
+      # rocks" for *den*.
+      "<": %i[big? den? pod? proper_subset?],
+      # Wiktionary gives "Inner, interior" as well as "Inside" for *ben*
+      "<=": %i[ben? subset?],
+      # Wiktionary gives "To enclose in a pen", that is "An enclosure
+      # (enclosed area)" for *pen*.
+      ">": %i[pen? proper_superset?],
+      # Merriam-Webster gives "to enclose in or as if in a box" for *box*
+      #
+      # Merriam-Webster gives "an upper limit (as on expenditures) : ceiling"
+      # for *cap*.
+      ">=": %i[box? cap? comprise? superset?],
+      # overriding the inherited method pointers
+      "==": %i[apt? congruent? equipotent? equiquantal? equivalue? par? worth?],
+      "[]": Array::INSTANCE_METHOD_ALIASES[:[]],
+      "[]=": Array::INSTANCE_METHOD_ALIASES[:[]=],
+      # Merriam-Webster gives "see *pair*" for *duo* and "two similar or
+      # associated things" for pair.
+      assoc: Array::INSTANCE_METHOD_ALIASES[:assoc],
+      # Wiktionary gives "To be equivalent to in value" for buy
+      #
+      # Wiktionary gives "To look for, seek; to probe; to examine; to try; to
+      # put to the test" for *woo*.
+      rassoc: Array::INSTANCE_METHOD_ALIASES[:rassoc],
+      eql?: Kernel::INSTANCE_METHOD_ALIASES[:eql?]
     }.freeze
   end
 
